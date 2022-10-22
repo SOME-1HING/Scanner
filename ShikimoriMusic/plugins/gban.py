@@ -87,8 +87,12 @@ async def revert(_, message: Message):
     try:
         user_id, reason, proof = extract_gban(message.text)
     except:
-        user_id = message.text.split()[0]
-    
+        try:
+            hmmm = message.split("-id")[1]
+            user_id = int(hmmm[1].strip())
+        except:
+            await message.reply_text("/revert -id (id)")
+            return
     if int(user_id) in SUDO_USERS:
         await message.reply_text(
             "That user is part of the Association\nI can't act against our own.",
