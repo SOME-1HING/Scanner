@@ -1,5 +1,3 @@
-from ShikimoriMusic.mongo.chats import add_served_chat, is_served_chat
-from ShikimoriMusic.mongo.users import add_served_user, is_served_user
 from ShikimoriMusic.plugins.stats import get_readable_time
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
@@ -23,8 +21,6 @@ TIME_DURATION_UNITS = (
 
 @Client.on_message(command("start") & filters.private & ~filters.edited)
 async def start_(client: Client, message: Message):
-    if not is_served_user(message.from_user.id):
-        add_served_user(message.from_user.id)
     await message.reply_text(
         f"""ᴡᴇʟᴄᴏᴍᴇ : {message.from_user.mention()}
 
@@ -49,14 +45,6 @@ async def start_(client: Client, message: Message):
 
 @Client.on_message(command("start") & ~filters.private & ~filters.edited)
 async def start_grp(client: Client, message: Message):
-    if not is_served_user(message.from_user.id):
-        add_served_user(message.from_user.id)
-    if not is_served_chat(message.chat.id):
-        try:
-            add_served_chat(message.chat.id)
-            pass
-        except:
-            pass
     botuptime = get_readable_time((time.time() - starttime))
     await message.reply_text(
         f"Hey {message.from_user.mention()}, I'm here for you at {message.chat.title} since : `{botuptime}`")
