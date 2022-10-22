@@ -3,6 +3,7 @@ aiofiles
 asyncio
 cryptography
 dnspython
+pretty_errors
 ffmpeg-python
 future
 gitpython
