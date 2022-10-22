@@ -24,6 +24,7 @@ uvloop
 wget
 youtube-search-python
 youtube-search
+telethon
 yt-dlp
 regex
 html5lib
