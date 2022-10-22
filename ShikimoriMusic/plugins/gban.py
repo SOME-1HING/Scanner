@@ -106,15 +106,11 @@ async def revert(_, message: Message):
     if user_id in [777000, 1087968824]:
         await message.reply_text("Fool! You can't attack Telegram's native tech!")
         return
-    try:
-        reason = f"{reason} + {proof}"
-    except:
-        reason = None
 
     db.ungban_user(user_id)
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
-            f"/ungban {user_id} {reason}. Reverted by {message.from_user.id}" if reason else f"/ungban {user_id}. Reverted by {message.from_user.id}" 
+            f"/ungban {user_id}"
         )
     
