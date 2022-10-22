@@ -1,6 +1,7 @@
 import logging
 import asyncio
 import time
+from aiohttp import ClientSession
 from ShikimoriMusic.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
 
 from pytgcalls import PyTgCalls
@@ -31,6 +32,7 @@ pytgcalls = PyTgCalls(calls)
 pbot = Client("ShikimoriMusic", API_ID, API_HASH, bot_token=BOT_TOKEN)
 ubot = Client(SESSION_STRING, API_ID, API_HASH)
 
+aiohttpsession = ClientSession()
 
 pbot.start()
 ubot.start()
