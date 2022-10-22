@@ -4,7 +4,7 @@ import requests
 from pyrogram import Client
 from pytgcalls import idle
 
-from ShikimoriMusic import LOGGER, pbot, ubot
+from ShikimoriMusic import LOGGER, pbot, ubot, tbot
 from ShikimoriMusic.mongo.global_bans_db import num_gbanned_users
 from ShikimoriMusic.vars import API_ID, API_HASH, BOT_TOKEN, BG_IMG
 
