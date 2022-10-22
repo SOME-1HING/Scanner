@@ -22,6 +22,7 @@ async def load_start():
     await ubot.send_message(
         -1001717154437, "**Assistant Started Successfully !!**"
     )
+    tbot.start(bot_token=BOT_TOKEN)
     
 
 loop = asyncio.get_event_loop_policy().get_event_loop()

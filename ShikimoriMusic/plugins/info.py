@@ -6,7 +6,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.errors import UserNotParticipant
 from pyrogram import Client
 
-from ShikimoriMusic import ASS_USERNAME, BOT_ID, ASS_NAME, ASS_ID, BOT_NAME, BOT_USERNAME, pbot
+from ShikimoriMusic import ASS_USERNAME, BOT_ID, ASS_NAME, ASS_ID, BOT_NAME, BOT_USERNAME, pbot, tbot
 from ShikimoriMusic.setup.filters import command
 
 # Change image size
@@ -20,7 +20,7 @@ def changeImageSize(maxWidth, maxHeight, image):
 
 async def generate_cover(first_name, user_id):
     user_pic = []
-    async for photo in Client.get_chat_photos(user_id, limit=1):
+    async for photo in tbot.get_profile_photos(user_id):
        user_pic.append(photo)
     user_dp = user_pic[0] 
     image = Image.open("etc/info_img.jpg")

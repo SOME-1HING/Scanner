@@ -7,6 +7,9 @@ from ShikimoriMusic.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
 from pytgcalls import PyTgCalls
 from pyrogram import Client
 
+from telethon import TelegramClient
+from telethon.sessions import MemorySession
+
 starttime = time.time()
 
 # enable logging
@@ -51,4 +54,4 @@ else:
     ASS_NAME = ub.first_name
 ASS_USERNAME = ub.username
 
-print("[INFO]: PTB CLIENT INITIALIZED")
+tbot = TelegramClient(MemorySession(), API_ID, API_HASH)
