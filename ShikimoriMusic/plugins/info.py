@@ -20,7 +20,7 @@ def changeImageSize(maxWidth, maxHeight, image):
 
 async def generate_cover(first_name, user_id):
     user_pic = []
-    async for photo in pbot.get_chat_photos(user_id):
+    async for photo in Client.get_chat_photos(user_id, limit=1):
        user_pic.append(photo)
     user_dp = user_pic[0] 
     image = Image.open("etc/info_img.jpg")
