@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from EmilyBot import aiohttpsession as aiosession
+from ShikimoriMusic import aiohttpsession as aiosession
 
 
 async def make_carbon(code):
