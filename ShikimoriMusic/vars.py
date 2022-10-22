@@ -24,3 +24,4 @@ LOG_CHANNEL = os.environ.get("LOG_CHANNEL", None)
 
 
 SUDO_USERS = (OWNER_ID, 5499316076)
+GBAN_CHATS = []
