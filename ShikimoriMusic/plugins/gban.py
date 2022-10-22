@@ -111,7 +111,7 @@ async def revert(_, message: Message):
     except:
         reason = None
 
-    db.ungban_user(user_id, reason)
+    db.ungban_user(user_id)
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
