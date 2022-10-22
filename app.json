@@ -1,0 +1,104 @@
+{
+    "name": "ShikimoriMusic",
+    "description": "Telegram bot for Streaming  Music trought the Telegram Group Video Chat, powered by pytgcalls and pyrogram",
+    "logo": "https://telegra.ph/file/484f10a04e17f2ac871f2.jpg",
+    "keywords": [
+        "pytgcalls",
+        "telegram bot",
+        "pyrogram"
+    ],
+    "repository": "https://github.com/SOME-1HING/ShikimoriMusic",
+    "env": {
+        "SESSION_NAME": {
+            "description": "fill with the pyrogram session string of your assistant account",
+            "required": false
+        },
+        "OWNER_ID": {
+            "description": "fill with your telegram id as the owner of the bot",
+            "required": false,
+            "value": "5058236569"
+        },
+        "OWNER_USERNAME": {
+            "description": "fill with the bot owner username without @",
+            "required": false,
+            "value": "Its_romeoo"
+        },
+        "ASSID": {
+            "description": "fill with telegram id of your assistant account",
+            "required": false,
+            "value": ""
+        },
+        "ASSNAME": {
+            "description": "fill with telegram name of your assistant account",
+            "required": false,
+            "value": ""
+        },
+        "ASSUSERNAME": {
+            "description": "fill with telegram username of your assistant account without @",
+            "required": false,
+            "value": ""
+        },
+        "BOT_ID": {
+            "description": "fill with telegram id of your bot",
+            "required": false,
+            "value": ""
+        },
+        "BOT_USERNAME": {
+            "description": "fill with telegram username of bot without @",
+            "required": false,
+            "value": ""
+        },
+        "BOT_NAME": {
+            "description": "fill with telegram name of bot",
+            "required": false,
+            "value": ""
+        },
+        "SUPPORT": {
+            "description": "fill with your bot support group, please fill valid username",
+            "required": false,
+            "value": "M8N_SUPPORT"
+        },
+        "UPDATE": {
+            "description": "fill with your bot update channel, please fill valid username",
+            "required": false,
+            "value": "M8N_OFFICIAL"
+        },
+        "API_ID": {
+            "description": "your Api ID from my.telegram.org/apps",
+            "required": false,
+            "value": ""
+        },
+        "API_HASH": {
+            "description": "your Api Hash from my.telegram.org/apps",
+            "required": false,
+            "value": ""
+        },
+        "BOT_TOKEN": {
+            "description": "fill with your bot token get from @BotFather on telegram",
+            "required": false,
+            "value": ""
+        },
+        "MONGO_DB_URI": {
+            "description": "fill with the mongodb url get from mongodb.com (don't use mine below !)",
+            "required": false,
+            "value": ""
+        }
+    },
+    "addons": [],
+    "buildpacks": [
+        {
+            "url": "heroku/python"
+        },
+        {
+            "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+        }
+    ],
+    "formation": {
+        "worker": {
+            "quantity": 1,
+            "size": "free"
+        }
+    },
+    "stack": "container"
+    }
+
