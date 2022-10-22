@@ -1,6 +1,6 @@
 from typing import List, Optional, Union
 
-from telegram import Message, MessageEntity
+from telegram import Message, MessageEntity, Bot
 from telegram.error import BadRequest
 from telegram.ext import ContextTypes
 
@@ -24,15 +24,13 @@ async def id_from_reply(message: Message):
 
 async def extract_user(
     message: Message,
-    context: ContextTypes.DEFAULT_TYPE,
     args: List[str],
 ) -> Optional[int]:
-    return (await extract_user_and_text(message, context, args))[0]
+    return (await extract_user_and_text(message, args))[0]
 
 
 async def extract_user_and_text(
     message: Message,
-    context: ContextTypes.DEFAULT_TYPE,
     args: List[str],
 ) -> Union[(Optional[int], Optional[str])]:
     prev_message = message.reply_to_message
@@ -82,7 +80,7 @@ async def extract_user_and_text(
         return None, None
 
     try:
-        await context.bot.get_chat(user_id)
+        await Bot.get_chat(user_id)
     except BadRequest as excp:
         if excp.message in ("User_id_invalid", "Chat not found"):
             await message.reply_text(

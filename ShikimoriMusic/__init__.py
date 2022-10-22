@@ -6,8 +6,6 @@ from ShikimoriMusic.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
 
 from pytgcalls import PyTgCalls
 from pyrogram import Client
-from telegram.error import BadRequest, Forbidden
-from telegram.ext import Application
 
 starttime = time.time()
 
@@ -52,20 +50,5 @@ if ub.last_name:
 else:
     ASS_NAME = ub.first_name
 ASS_USERNAME = ub.username
-
-# PTB Client
-async def post_init(application: Application):
-    try:
-        await application.bot.sendMessage(-1001717154437, "👋 Hi, i'm alive.")
-    except Forbidden:
-        LOGGER.warning(
-            "Bot isn't able to send message to support_chat, gos and check!",
-        )
-    except BadRequest as e:
-        LOGGER.warning(e.message)
-
-
-application = Application.builder().token(BOT_TOKEN).post_init(post_init).build()
-asyncio.get_event_loop().run_until_complete(application.bot.initialize())
 
 print("[INFO]: PTB CLIENT INITIALIZED")

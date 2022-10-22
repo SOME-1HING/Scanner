@@ -1,12 +1,10 @@
 import asyncio
 import requests
 
-from telegram.ext import CommandHandler
-
 from pyrogram import Client
 from pytgcalls import idle
 
-from ShikimoriMusic import LOGGER, pbot, application, ubot
+from ShikimoriMusic import LOGGER, pbot, ubot
 from ShikimoriMusic.mongo.queue import get_active_chats, remove_active_chat
 from ShikimoriMusic.calls.calls import run
 from ShikimoriMusic.plugins.errors import error_callback
@@ -16,13 +14,6 @@ from ShikimoriMusic.vars import API_ID, API_HASH, BOT_TOKEN, BG_IMG, OWNER_ID
 response = requests.get(BG_IMG)
 with open("./etc/foreground.png", "wb") as file:
     file.write(response.content)
-
-def main():
-    application.add_handler(CommandHandler("gban", gban, block=False))
-    application.add_handler(CommandHandler("ungban", ungban, block=False))
-    application.add_handler(CommandHandler("gbanlist", gbanlist, block=False))
-    application.run_polling(timeout=15, drop_pending_updates=False)
-    application.add_error_handler(error_callback)
 
 async def load_start():
     served_chats = []
@@ -48,7 +39,6 @@ async def load_start():
     await ubot.send_message(
         -1001717154437, "**Assistant Started Successfully !!**"
     )
-    main()
     
 
 loop = asyncio.get_event_loop_policy().get_event_loop()

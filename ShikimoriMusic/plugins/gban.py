@@ -9,7 +9,7 @@ from telegram.constants import ParseMode
 from telegram.error import BadRequest, Forbidden, TelegramError
 from telegram.ext import CallbackContext, ContextTypes
 from telegram.helpers import mention_html
-
+from pyrogram import Client
 from ShikimoriMusic import pbot
 from ShikimoriMusic.plugins.extraction import extract_user_and_text, extract_user
 from ShikimoriMusic.vars import OWNER_ID, SUPPORT_CHAT, SUDO_USERS
@@ -45,6 +45,7 @@ def sudo_plus(func):
     return is_sudo_plus_func
 
 @sudo_plus
+@Client.on_message(command("gban"))
 async def gban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -173,6 +174,7 @@ async def gban(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 @sudo_plus
+@Client.on_message(command("ungban"))
 async def ungban(update: Update, context: ContextTypes.DEFAULT_TYPE):
     bot, args = context.bot, context.args
     message = update.effective_message
@@ -232,6 +234,7 @@ async def ungban(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 @sudo_plus
+@Client.on_message(command("gbanlist"))
 async def gbanlist(update: Update, context: CallbackContext):
     banned_users = db.get_gban_list()
 
