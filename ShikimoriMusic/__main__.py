@@ -48,12 +48,11 @@ async def load_start():
     await ubot.send_message(
         -1001717154437, "**Assistant Started Successfully !!**"
     )
+    main()
     
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
 loop.run_until_complete(load_start())
-
-main()
 
 Client(
     ":memory:",
