@@ -1,4 +1,5 @@
 import logging
+import asyncio
 import time
 from ShikimoriMusic.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
 
