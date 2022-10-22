@@ -18,9 +18,9 @@ from ShikimoriMusic.setup.filters import command
 from ShikimoriMusic.mongo import global_bans_db as db
 
 def extract_gban(message):
-    LOGGER.info(message)
-    hmm = message.split("-r")
-    id = int(hmm[0].split()[1])
+    hmmm = message.split("-id")[1]
+    hmm = hmmm.split("-r")
+    id = int(hmm[0].split()[0].strip())
     reason = hmm[1].split("-p")[0].strip()
     proof = hmm[1].split("-p")[1].strip()
     return id, reason, proof
@@ -56,11 +56,11 @@ def sudo_plus(func):
 @sudo_plus
 @Client.on_message(command("scan"))
 async def scan(_, message: Message):
-    if len(message.command) < 1:
+    try:
+        user_id, reason, proof = extract_gban(message.text)
+    except:
         await message.reply_text("/scan -id (id) -r (reason)  -p (proof link)")
         return
-    user_id, reason, proof = extract_gban(message.text)
-    
     if int(user_id) in SUDO_USERS:
         await message.reply_text(
             "That user is part of the Association\nI can't act against our own.",
