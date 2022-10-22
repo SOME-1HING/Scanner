@@ -8,7 +8,7 @@ import time
 from datetime import datetime
 
 from ShikimoriMusic.setup.filters import command
-from ShikimoriMusic.vars import OWNER_ID, SUDO_USERS, SUPPORT_CHAT
+from ShikimoriMusic.vars import SUPPORT_CHAT
 from ShikimoriMusic import BOT_USERNAME, starttime
 
 START_TIME = datetime.utcnow()
@@ -60,32 +60,3 @@ async def start_grp(client: Client, message: Message):
     botuptime = get_readable_time((time.time() - starttime))
     await message.reply_text(
         f"Hey {message.from_user.mention()}, I'm here for you at {message.chat.title} since : `{botuptime}`")
-
-@Client.on_message(command(["ping"]) & ~filters.edited)
-async def ping_pong(client: Client, message: Message):
-    start = time()
-    m_reply = await message.reply_text("ᴘɪɴɢ..... 👀")
-    delta_ping = time() - start
-    await m_reply.edit_text("ᴘᴏɴɢ.... 🥵\n" f"`{delta_ping * 1000:.3f} ᴍx`")
-
-@Client.on_message(filters.new_chat_members)
-async def welcome(client, message: Message):
-    chat_id = message.chat.id
-    if not is_served_chat(chat_id):
-        try:
-            add_served_chat(chat_id)
-            pass
-        except:
-            pass
-    for member in message.new_chat_members:
-        if member.id ==OWNER_ID:
-            return await message.reply_video(
-                video="https://telegra.ph/file/e6fcbd9f756006c2329f6.mp4",
-                caption="ʜᴇʏʏ ғᴇʟʟᴀs ! ʟᴏᴏᴋ ᴡʜᴏ ᴀʀʀɪᴠᴇᴅ.... ɪᴛs ᴍʏ ᴏᴡɴᴇʀ ᴜᴡᴜ~",
-            )
-        if member.id in SUDO_USERS:
-            return await message.reply_animation(
-                "https://telegra.ph/file/382c47440fa726549b49d.mp4",
-                caption="Behold A SUDO User has just joined the chat.",
-            )
-        return

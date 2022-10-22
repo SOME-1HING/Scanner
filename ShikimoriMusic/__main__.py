@@ -14,21 +14,6 @@ with open("./etc/foreground.png", "wb") as file:
     file.write(response.content)
 
 async def load_start():
-    served_chats = []
-    try:
-        chats = get_active_chats()
-        for chat in chats:
-            served_chats.botend(int(chat["chat_id"]))
-    except Exception as e:
-        LOGGER.info("Error came while clearing db")
-    for served_chat in served_chats:
-        try:
-            remove_active_chat(served_chat)
-        except Exception as e:
-            LOGGER.info("Error came while clearing db")
-            pass
-    #await pbot.send_message(OWNER_ID, "**Music Bot Started Successfully !!**")
-   # Copyrighted Area
     LOGGER.info("[INFO]: STARTED")
     await pbot.send_message(
         -1001717154437, "**Pyrogram Client Started Successfully !!**"

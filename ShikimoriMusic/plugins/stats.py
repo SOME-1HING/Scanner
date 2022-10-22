@@ -3,9 +3,7 @@ import platform
 import time
 from psutil import cpu_percent, virtual_memory, disk_usage, boot_time
 from platform import python_version
-from ShikimoriMusic.mongo.chats import get_served_chats
-from ShikimoriMusic.mongo.queue import get_active_chats
-from ShikimoriMusic.mongo.users import get_served_users
+from ShikimoriMusic.mongo.global_bans_db import num_gbanned_users
 from ShikimoriMusic.setup.filters import command
 from pyrogram import __version__ as pyrover
 from pyrogram.types import Message
@@ -64,9 +62,7 @@ async def stats(_, message: Message):
             img,
             caption = status
             + "\n\n**「✪」Bᴏᴛ Sᴛᴀᴛɪsᴛɪᴄs「✪」**:\n\n✦"
-            + f"**┈➤ Served Chats:** `{len(get_served_chats())}`\n✦" 
-            + f"**┈➤ Served Users:** `{len(get_served_users())}` \n✦"
-            + f"**┈➤ Active VC:** `{len(get_active_chats())}`\n"
+            + f"**┈➤ Scanned Users:** `{num_gbanned_users()}`\n✦" 
 
             + f"\n\n    [✦ ꜱᴜᴘᴘᴏʀᴛ ✦](https://t.me/{SUPPORT_CHAT})\n"
             + " ┗━━✦❘༻           ༺❘✦━━┛",

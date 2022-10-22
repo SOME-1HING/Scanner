@@ -1,19 +1,8 @@
-from functools import wraps
-import html
-import time
-from datetime import datetime
-from io import BytesIO
-
-from telegram import ChatMemberAdministrator, Update, Chat, ChatMember
-from telegram.constants import ParseMode
-from telegram.error import BadRequest, Forbidden, TelegramError
-from telegram.ext import CallbackContext, ContextTypes
 from pyrogram.types import Message
-from telegram.helpers import mention_html
 from pyrogram import Client
-from ShikimoriMusic import ASS_ID, BOT_ID, pbot, ubot, LOGGER
-from ShikimoriMusic.plugins.extraction import extract_user_and_text, extract_user
-from ShikimoriMusic.vars import OWNER_ID, SUPPORT_CHAT, SUDO_USERS, GBAN_CHATS
+
+from ShikimoriMusic import ASS_ID, BOT_ID, ubot, LOGGER
+from ShikimoriMusic.vars import SUDO_USERS, GBAN_CHATS
 from ShikimoriMusic.setup.filters import command
 from ShikimoriMusic.mongo import global_bans_db as db
 
@@ -25,37 +14,13 @@ def extract_gban(message):
     proof = hmm[1].split("-p")[1].strip()
     return id, reason, proof
 
-def is_sudo_plus(chat: Chat, user_id: int, member: ChatMember = None) -> bool:
-    return user_id in SUDO_USERS
-
-def sudo_plus(func):
-    @wraps(func)
-    async def is_sudo_plus_func(
-        update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs
-    ):
-        context.bot
-        user = update.effective_user
-        chat = update.effective_chat
-
-        if user and is_sudo_plus(chat, user.id):
-            return await func(update, context, *args, **kwargs)
-        elif not user:
-            pass
-        elif " " not in update.effective_message.text:
-            try:
-                await update.effective_message.delete()
-            except:
-                pass
-        else:
-            await update.effective_message.reply_text(
-                "Who the hell are you to say me what to do?",
-            )
-
-    return is_sudo_plus_func
-
-@sudo_plus
 @Client.on_message(command("scan"))
 async def scan(_, message: Message):
+    if message.from_user.id not in SUDO_USERS:
+        await message.reply_text(
+            "You need to be part of the Association to scan a user.",
+        )
+        return
     try:
         user_id, reason, proof = extract_gban(message.text)
     except:
@@ -81,9 +46,13 @@ async def scan(_, message: Message):
             f"/gban {user_id} {reason}. Scanned by {message.from_user.id}"
         )
 
-@sudo_plus
 @Client.on_message(command("revert"))
 async def revert(_, message: Message):
+    if message.from_user.id not in SUDO_USERS:
+        await message.reply_text(
+            "You need to be part of the Association to scan a user.",
+        )
+        return
     try:
         user_id, reason, proof = extract_gban(message.text)
     except:
