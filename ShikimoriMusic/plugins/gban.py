@@ -11,13 +11,14 @@ from telegram.ext import CallbackContext, ContextTypes
 from pyrogram.types import Message
 from telegram.helpers import mention_html
 from pyrogram import Client
-from ShikimoriMusic import ASS_ID, BOT_ID, pbot, ubot
+from ShikimoriMusic import ASS_ID, BOT_ID, pbot, ubot, LOGGER
 from ShikimoriMusic.plugins.extraction import extract_user_and_text, extract_user
 from ShikimoriMusic.vars import OWNER_ID, SUPPORT_CHAT, SUDO_USERS, GBAN_CHATS
 from ShikimoriMusic.setup.filters import command
 from ShikimoriMusic.mongo import global_bans_db as db
 
 def extract_gban(message):
+    LOGGER.info(message)
     hmm = message.split("-r")
     id = int(hmm[0].split()[1])
     reason = hmm[1].split("-p")[0].strip()
