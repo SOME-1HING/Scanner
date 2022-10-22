@@ -19,7 +19,7 @@ from ShikimoriMusic.mongo import global_bans_db as db
 
 def extract_gban(message):
     hmmm = message.split("-id")[1]
-    hmm = hmmm.split("-r")
+    hmm = hmmm.split("-r")  
     id = int(hmm[0].split()[0].strip())
     reason = hmm[1].split("-p")[0].strip()
     proof = hmm[1].split("-p")[1].strip()
@@ -89,7 +89,7 @@ async def revert(_, message: Message):
     except:
         try:
             hmmm = message.text.split("-id")[1]
-            user_id = int(hmmm[1].strip())
+            user_id = int(hmmm.strip())
         except:
             LOGGER.info(message.text)
             await message.reply_text("/revert -id (id)")
@@ -115,6 +115,6 @@ async def revert(_, message: Message):
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
-            f"/ungban {user_id} {reason}. Reverted by {message.from_user.id}"
+            f"/ungban {user_id} {reason}. Reverted by {message.from_user.id}" if reason else f"/ungban {user_id}. Reverted by {message.from_user.id}" 
         )
     
