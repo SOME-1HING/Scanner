@@ -88,9 +88,10 @@ async def revert(_, message: Message):
         user_id, reason, proof = extract_gban(message.text)
     except:
         try:
-            hmmm = message.split("-id")[1]
+            hmmm = message.text.split("-id")[1]
             user_id = int(hmmm[1].strip())
         except:
+            LOGGER.info(message.text)
             await message.reply_text("/revert -id (id)")
             return
     if int(user_id) in SUDO_USERS:
