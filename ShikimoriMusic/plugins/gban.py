@@ -110,6 +110,6 @@ async def ungban(_, message: Message):
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
-            f"/gban {user_id} {reason}"
+            f"/ungban {user_id} {reason}"
         )
     
