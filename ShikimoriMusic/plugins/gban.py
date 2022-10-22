@@ -73,13 +73,12 @@ async def scan(_, message: Message):
     if user_id in [777000, 1087968824]:
         await message.reply_text("Fool! You can't attack Telegram's native tech!")
         return
-    reason = f"{reason} + {proof}"
 
     db.gban_user(user_id, reason)
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
-            f"/gban {user_id} {reason}"
+            f"/gban {user_id} {reason}. Scanned by {message.from_user.id}"
         )
 
 @sudo_plus
@@ -111,6 +110,6 @@ async def revert(_, message: Message):
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
-            f"/ungban {user_id} {reason}"
+            f"/ungban {user_id} {reason}. Reverted by {message.from_user.id}"
         )
     
