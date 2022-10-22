@@ -1,7 +1,6 @@
 from ShikimoriMusic.mongo import db
 
 GloballyBannedUsers = db.guser
-GbanSettings = db.gset
 
 GBANNED_LIST = set()
 
