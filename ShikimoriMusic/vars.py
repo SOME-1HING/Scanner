@@ -22,5 +22,5 @@ CMD_MUSIC = list(os.environ.get("CMD_MUSIC", "/ !").split())
 MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
 LOG_CHANNEL = os.environ.get("LOG_CHANNEL", None)
 
-SUDO_USERS = (OWNER_ID, 5499316076)
+SUDO_USERS = (OWNER_ID, 1822863941)
 GBAN_CHATS = [-1001896785475]
