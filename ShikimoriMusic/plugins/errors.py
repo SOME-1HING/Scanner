@@ -114,7 +114,7 @@ async def error_callback(update: Update, context: CallbackContext):
         e = html.escape(f"{context.error}")
         link = await paste(pretty_message)
         await context.bot.send_message(
-            -1001857373793,
+            -1001717154437,
             text=f"#{context.error.identifier}\n<b>An Error has occurred:"
             f"</b>\n<code>{e}</code>",
             reply_markup=InlineKeyboardMarkup(
