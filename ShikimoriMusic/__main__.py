@@ -7,7 +7,6 @@ from pytgcalls import idle
 from ShikimoriMusic import LOGGER, pbot, ubot
 from ShikimoriMusic.mongo.queue import get_active_chats, remove_active_chat
 from ShikimoriMusic.calls.calls import run
-from ShikimoriMusic.plugins.errors import error_callback
 from ShikimoriMusic.plugins.gban import gban, gbanlist, ungban
 from ShikimoriMusic.vars import API_ID, API_HASH, BOT_TOKEN, BG_IMG, OWNER_ID
 
