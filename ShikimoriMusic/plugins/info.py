@@ -46,5 +46,5 @@ async def generate_cover(first_name, user_id):
 @Client.on_message(command("info"))
 async def info(client: Client, message: Message):
     user = message.from_user
-    profile = generate_cover(user.first_name, user.id)
+    profile = await generate_cover(user.first_name, user.id)
     message.reply_photo(profile, caption="hmm")
