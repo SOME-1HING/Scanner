@@ -53,9 +53,9 @@ def sudo_plus(func):
     return is_sudo_plus_func
 
 @sudo_plus
-@Client.on_message(command("gban"))
-async def gban(_, message: Message):
-    if len(message.command) != 2:
+@Client.on_message(command("scan"))
+async def scan(_, message: Message):
+    if len(message.command) < 1:
         await message.reply_text("/scan -id (id) -r (reason)  -p (proof link)")
         return
     user_id, reason, proof = extract_gban(message.text)
@@ -82,8 +82,8 @@ async def gban(_, message: Message):
         )
 
 @sudo_plus
-@Client.on_message(command("ungban"))
-async def ungban(_, message: Message):
+@Client.on_message(command("revert"))
+async def revert(_, message: Message):
     try:
         user_id, reason, proof = extract_gban(message.text)
     except:
