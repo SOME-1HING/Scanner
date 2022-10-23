@@ -62,19 +62,6 @@ async def revert(_, message: Message):
         except:
             await message.reply_text("/revert -id (id)")
             return
-    if int(user_id) in SUDO_USERS:
-        await message.reply_text(
-            "That user is part of the Association\nI can't act against our own.",
-        )
-        return
-    
-    if user_id == BOT_ID or user_id == ASS_ID:
-        await message.reply_text("You uhh...want me to punch myself?")
-        return
-    if user_id in [777000, 1087968824]:
-        await message.reply_text("Fool! You can't attack Telegram's native tech!")
-        return
-
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
