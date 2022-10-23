@@ -55,8 +55,8 @@ async def generate_cover(user, user_dp):
 
     LOGGER.info("e2")
     # title
-    image4.text((60, 320), text=user.first_name, fill="white", font = font3, align ="left") 
-    image4.text((60, 360), text=user.id, fill="white", font = font3, align ="left") 
+    '''image4.text((60, 320), text=user.first_name, fill="white", font = font3, align ="left") 
+    image4.text((60, 360), text=user.id, fill="white", font = font3, align ="left") '''
 
     LOGGER.info("e3")
     image1.save(f"{user.id}.png")
