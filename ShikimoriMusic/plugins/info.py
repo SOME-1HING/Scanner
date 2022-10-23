@@ -18,9 +18,9 @@ def changeImageSize(maxWidth, maxHeight, image):
     newImage = image.resize((newWidth, newHeight))
     return newImage
 
-async def generate_cover(first_name, user_id):
+async def generate_cover(user):
     user_pic = []
-    async for photo in tbot.get_profile_photos(user_id):
+    async for photo in tbot.get_profile_photos(user.id):
        user_pic.append(photo)
     user_dp = user_pic[0] 
     image = Image.open("etc/info_img.jpg")
@@ -36,8 +36,8 @@ async def generate_cover(first_name, user_id):
     image4 = ImageDraw.Draw(image1)
 
     # title
-    image4.text((60, 320), text=first_name, fill="white", font = font3, align ="left") 
-    image4.text((60, 360), text=user_id, fill="white", font = font3, align ="left") 
+    image4.text((60, 320), text=user.first_name, fill="white", font = font3, align ="left") 
+    image4.text((60, 360), text=user.id, fill="white", font = font3, align ="left") 
 
     image1.save(f"final.png")
     final = f"temp.png"
@@ -46,5 +46,5 @@ async def generate_cover(first_name, user_id):
 @Client.on_message(command("info"))
 async def info(client: Client, message: Message):
     user = message.from_user
-    profile = await generate_cover(user.first_name, user.id)
+    profile = await generate_cover(user)
     message.reply_photo(profile, caption="hmm")
