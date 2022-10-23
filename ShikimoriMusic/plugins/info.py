@@ -58,8 +58,9 @@ async def generate_cover(user, user_dp):
     image4.text((60, 320), text=user.first_name, fill="white", font = font3, align ="left") 
     image4.text((60, 360), text=user.id, fill="white", font = font3, align ="left") 
 
-    image1.save(f"{user.id}.png")
     LOGGER.info("e3")
+    image1.save(f"{user.id}.png")
+    LOGGER.info("e4")
     return
     
 def tgm_uploder(file):
@@ -82,15 +83,9 @@ async def PPScmd(event):
         if user:
             photos = await event.client.get_profile_photos(user.sender)
             
-            await tbot.send_message(event.chat.id, "1")
             photo = await event.client.download_media(photos[0], "./")
-            await tbot.send_message(event.chat.id, "2")
             await tbot.send_file(event.chat.id, photo)
-            await tbot.send_message(event.chat.id, "3")
             link, error = tgm_uploder(photo)
-            await tbot.send_message(event.chat.id, "4")
-            await tbot.send_message(event.chat.id, f"{link} + {error}")
-            await tbot.send_message(event.chat.id, "5")
             await generate_cover(user.sender, link)
             await tbot.send_message(event.chat.id, "6")
             await tbot.send_file(event.chat.id, f"{user.sender.id}.png")
