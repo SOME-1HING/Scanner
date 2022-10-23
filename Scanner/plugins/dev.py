@@ -46,10 +46,13 @@ async def sudolist(_, message: Message):
     reply = "<b>Sudo Users:</b>\n"
     for each_user in true_dev:
         user_id = int(each_user)
-        user = await pbot.get_users(user_id)
-        user = (
-            user.first_name if not user.mention else user.mention
-        )
+        try:
+            user = await pbot.get_users(user_id)
+            user = (
+                user.first_name if not user.mention else user.mention
+            )
+        except:
+            user = user_id
         reply += f"• {user}\n"
     await m.delete()
     await message.reply_animation(img, caption=reply, parse_mode="html")
