@@ -5,7 +5,7 @@ from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 import time
 from datetime import datetime
 
-from Scanner.setup.filters import command
+from Scanner.utils.filters import command
 from Scanner.vars import SUPPORT_CHAT
 from Scanner import BOT_USERNAME, starttime
 

@@ -1,7 +1,7 @@
 from Scanner import pbot
 from Scanner.vars import OWNER_ID, SUDO_USERS
 from pyrogram import Client
-from Scanner.setup.filters import command
+from Scanner.utils.filters import command
 from pyrogram.types import Message
 
 @Client.on_message(command("leave"))

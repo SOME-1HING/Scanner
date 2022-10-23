@@ -8,7 +8,7 @@ from pyrogram import Client
 from pyrogram.types import Message
 from pyrogram import __version__
 
-from Scanner.setup.filters import command
+from Scanner.utils.filters import command
 
 StartTime = time.time()
 
