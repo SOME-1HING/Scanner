@@ -24,18 +24,23 @@ async def start_(client: Client, message: Message):
     await message.reply_text(
         f"""ᴡᴇʟᴄᴏᴍᴇ : {message.from_user.mention()}
 
-ɪ ᴀᴍ ᴩᴏᴡᴇʀғᴜʟ ᴍᴜsɪᴄ ᴩʟᴀʏᴇʀ ʙᴏᴛ ᴡɪᴛʜ sᴏᴍᴇ ᴀᴡᴇsᴏᴍᴇ ᴀɴᴅ ᴜsᴇғᴜʟ ғᴇᴀᴛᴜʀᴇs.
+I am a scanner, use me to gban user in muiltiple bots at the same time.
 
-ᴜsᴇ ɪɴʟɪɴᴇ ʙᴜᴛᴛᴏɴs ɢɪᴠᴇɴ ʙᴇʟᴏᴡ ᴛᴏ ᴋɴᴏᴡ ᴍᴏʀᴇ ᴀʙᴏᴜᴛ ᴍᴇ !!""",
+Usage:
+    /start
+    /scan -id (id) -r (reason)  -p (proof link)
+    /revert -id (id)
+    /gscan (reason)
+    /grevert
+    /stats
+    /ping
+    /sudos
+""",
     reply_markup=InlineKeyboardMarkup(
             [
                 [
                     InlineKeyboardButton(
-                        "🗂 ᴄᴏᴍᴍᴀɴᴅs", callback_data="cmds"),
-                    InlineKeyboardButton(
-                        "🆘 ʜᴇʟᴘ", url=f"https://t.me/{SUPPORT_CHAT}")
-                ],
-                [
+                        "🆘 ʜᴇʟᴘ", url=f"https://t.me/{SUPPORT_CHAT}"),
                     InlineKeyboardButton(
                         "✚ ᴄʟɪᴄᴋ ʜᴇʀᴇ ᴛᴏ ᴀᴅᴅ ᴍᴇ", url=f"https://t.me/{BOT_USERNAME}?startgroup=true")
                 ],
