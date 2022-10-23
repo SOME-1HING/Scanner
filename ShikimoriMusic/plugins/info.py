@@ -45,6 +45,7 @@ async def PPScmd(event):
     try: 
         await tbot.send_message(event.chat.id, "1")
         user = await event.get_reply_message()
+        await tbot.send_message(event.chat.id, "2")
         if user:
             photos = await event.client.get_profile_photos(user.sender)
         else:
