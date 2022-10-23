@@ -16,5 +16,6 @@ MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
 LOG_CHANNEL_ID = os.environ.get("LOG_CHANNEL_ID", None)
 
 SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
-SUDO_USERS.append(OWNER_ID)
+SUDO_USERS.add(OWNER_ID)
+SUDO_USERS = list(SUDO_USERS)
 GBAN_CHATS = set(int(x) for x in os.environ.get("GBAN_CHATS", "").split())
