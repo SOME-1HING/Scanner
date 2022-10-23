@@ -3,7 +3,7 @@ import platform
 import time
 from psutil import cpu_percent, virtual_memory, disk_usage, boot_time
 from platform import python_version
-from Scanner.mongo.global_bans_db import num_gbanned_users
+from Scanner.db.global_bans_db import num_gbanned_users
 from Scanner.setup.filters import command
 from pyrogram import __version__ as pyrover
 from pyrogram.types import Message

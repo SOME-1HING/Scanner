@@ -1,4 +1,4 @@
-from Scanner.mongo import db
+from Scanner.db import db
 
 GloballyBannedUsers = db.guser
 

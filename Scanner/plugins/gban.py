@@ -6,7 +6,7 @@ from pyrogram import Client
 from Scanner import ASS_ID, BOT_ID, pbot, ubot
 from Scanner.vars import LOG_CHANNEL_ID, SUDO_USERS, GBAN_CHATS
 from Scanner.setup.filters import command
-from Scanner.mongo import global_bans_db as db
+from Scanner.db import global_bans_db as db
 
 def extract_gban(message):
     hmmm = message.split("-id")[1]

@@ -5,7 +5,7 @@ from pyrogram import Client
 from pytgcalls import idle
 
 from Scanner import LOGGER, pbot, ubot, tbot
-from Scanner.mongo.global_bans_db import num_gbanned_users
+from Scanner.db.global_bans_db import num_gbanned_users
 from Scanner.vars import API_ID, API_HASH, BOT_TOKEN, BG_IMG
 
 response = requests.get(BG_IMG)
