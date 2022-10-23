@@ -32,5 +32,4 @@
 
 <p align="center">
 <a href="https://github.com/SOME-1HING"> <img src="https://img.shields.io/badge/SOME1HING-Github-magenta?style=for-the-badge&logo=github" alt="SOME-1HING Github" /> </a>
-<a href="https://github.com/asadali32117"> <img src="https://img.shields.io/badge/asadali32117-Github-magenta?style=for-the-badge&logo=github" alt="Ryu120 Github" /> </a>
 </p>
