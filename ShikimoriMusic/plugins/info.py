@@ -39,7 +39,7 @@ async def generate_cover(user_id, first_name, user_dp):
                 f = await aiofiles.open("user_dp.png", mode="wb")
                 await f.write(await resp.read())
                 await f.close()
-    LOGGER.info("e1")
+
     image = Image.open("etc/info_img.jpg")
     dp = Image.open(f"./user_dp.png")
     image1 = changeImageSize(300, 424, image)
@@ -54,12 +54,14 @@ async def generate_cover(user_id, first_name, user_dp):
     image4 = ImageDraw.Draw(image1)
 
     # title
-    image4.text((60, 320), text=first_name, fill="white", font = font3, align ="left") 
-    image4.text((60, 360), text=user_id, fill="white", font = font3, align ="left")
+    image4.text((60, 320), text=first_name, fill="white", font = font3, align ="left")
+    
+    '''image4.text((60, 360), text=user_id, fill="white", font = font3, align ="left")'''
 
     LOGGER.info("e3")
     image1.save(f"{user_id}.png")
     LOGGER.info("e4")
+    os.remove(f"user_dp.png")
     return
 
 def tgm_uploder(file):
@@ -83,7 +85,6 @@ async def PPScmd(event):
             photos = await event.client.get_profile_photos(user.sender)
             
             photo = await event.client.download_media(photos[0], "./")
-            await tbot.send_file(event.chat.id, photo)
             link, error = tgm_uploder(photo)
             await generate_cover(user.sender.id, user.sender.first_name, link)
             await tbot.send_file(event.chat.id, f"{user.sender.id}.png")
