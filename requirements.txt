@@ -10,7 +10,6 @@ gitpython
 python-telegram-bot==20.0a4
 pyrogram==1.4.6
 hurry.filesize
-heroku3
 motor
 pillow
 psutil
@@ -22,10 +21,6 @@ search-engine-parser
 tgcrypto
 uvloop
 wget
-youtube-search-python
-youtube-search
 telethon
-yt-dlp
-telegraph
 regex
 html5lib

@@ -3,10 +3,10 @@ from io import BytesIO
 from pyrogram.types import Message
 from pyrogram import Client
 
-from ShikimoriMusic import ASS_ID, BOT_ID, LOGGER, ubot
-from ShikimoriMusic.vars import SUDO_USERS, GBAN_CHATS
-from ShikimoriMusic.setup.filters import command
-from ShikimoriMusic.mongo import global_bans_db as db
+from Scanner import ASS_ID, BOT_ID, pbot, ubot
+from Scanner.vars import LOG_CHANNEL_ID, SUDO_USERS, GBAN_CHATS
+from Scanner.setup.filters import command
+from Scanner.mongo import global_bans_db as db
 
 def extract_gban(message):
     hmmm = message.split("-id")[1]
@@ -44,9 +44,20 @@ async def scan(_, message: Message):
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
-            f"/gban {user_id} {reason}. Scanned by {message.from_user.id}"
+            f"/gban {user_id} {reason} Proof: {proof}. Scanned by {message.from_user.id}"
         )
     db.gban_user(user_id, reason)
+    await pbot.send_message(
+        LOG_CHANNEL_ID,
+        f"""
+# SCANNED
+User ID: {user_id}
+Reason: {reason}
+Proof: {proof}
+
+Scanned By: {message.from_user.id}
+"""
+    )
 
 @Client.on_message(command("revert"))
 async def revert(_, message: Message):
@@ -70,6 +81,15 @@ async def revert(_, message: Message):
             f"/ungban {user_id}"
         )
     db.ungban_user(user_id)
+    await pbot.send_message(
+        LOG_CHANNEL_ID,
+        f"""
+# REVERTED
+User ID: {user_id}
+
+Reverted By: {message.from_user.id}
+"""
+    )
     
 @Client.on_message(command("scanlist"))
 async def scanlist(_, message: Message):
@@ -98,7 +118,7 @@ async def scanlist(_, message: Message):
 from telethon.tl.types import ChatBannedRights
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon import events
-from ShikimoriMusic import tbot
+from Scanner import tbot
 
 @tbot.on(events.NewMessage(pattern="^/gscan ?(.*)"))
 async def gscan(hmm):
@@ -122,6 +142,16 @@ async def gscan(hmm):
                         f"/gban {user.id} {reason}"
                     )
                 db.gban_user(user.id, reason)
+                await pbot.send_message(
+                    LOG_CHANNEL_ID,
+        f"""
+# GSCANNED
+User ID: {user.id}
+Reason: {reason}
+
+GScanned By: {hmm.sender_id}
+"""
+    )
             except:
                 pass
             
@@ -141,5 +171,14 @@ async def grevert(hmm):
                         f"/ungban {user.id}"
                     )
                 db.ungban_user(user.id)
+                await pbot.send_message(
+                    LOG_CHANNEL_ID,
+        f"""
+# GREVERTED
+User ID: {user.id}
+
+GReverted By: {hmm.sender_id}
+"""
+    )
             except:
                 pass

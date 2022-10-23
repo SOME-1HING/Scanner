@@ -4,9 +4,9 @@ import requests
 from pyrogram import Client
 from pytgcalls import idle
 
-from ShikimoriMusic import LOGGER, pbot, ubot, tbot
-from ShikimoriMusic.mongo.global_bans_db import num_gbanned_users
-from ShikimoriMusic.vars import API_ID, API_HASH, BOT_TOKEN, BG_IMG
+from Scanner import LOGGER, pbot, ubot, tbot
+from Scanner.mongo.global_bans_db import num_gbanned_users
+from Scanner.vars import API_ID, API_HASH, BOT_TOKEN, BG_IMG
 
 response = requests.get(BG_IMG)
 with open("./etc/foreground.png", "wb") as file:
@@ -34,7 +34,7 @@ Client(
     API_ID,
     API_HASH,
     bot_token=BOT_TOKEN,
-    plugins={"root": "ShikimoriMusic.plugins"},
+    plugins={"root": "Scanner.plugins"},
 ).start()
 
 idle()

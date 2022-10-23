@@ -1,13 +1,13 @@
-from ShikimoriMusic.plugins.stats import get_readable_time
+from Scanner.plugins.stats import get_readable_time
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 import time
 from datetime import datetime
 
-from ShikimoriMusic.setup.filters import command
-from ShikimoriMusic.vars import SUPPORT_CHAT
-from ShikimoriMusic import BOT_USERNAME, starttime
+from Scanner.setup.filters import command
+from Scanner.vars import SUPPORT_CHAT
+from Scanner import BOT_USERNAME, starttime
 
 START_TIME = datetime.utcnow()
 START_TIME_ISO = START_TIME.replace(microsecond=0).isoformat()

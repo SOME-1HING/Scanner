@@ -1,4 +1,4 @@
-from ShikimoriMusic.mongo import db
+from Scanner.mongo import db
 
 GloballyBannedUsers = db.guser
 

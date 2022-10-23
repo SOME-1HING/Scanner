@@ -1,6 +1,6 @@
 {
-    "name": "Emily Bot",
-    "description": "A Powerful  Telegram group management bot with anime theme.",
+    "name": "Scanner Bor",
+    "description": "A Powerful Scanner for Telegram group management bots.",
     "keywords": [
        "telegram",
        "advance"
@@ -16,44 +16,46 @@
  "env": {
     "ENV": {
         "API_HASH": {
-            "description": "fill with the pyrogram session string of your assistant account",
-            "required": false
+            "description": "Get API_HASH from my.telegram.org ",
+            "required": true,
+            "value": ""
         },
         "API_ID": {
-            "description": "fill with your telegram id as the owner of the bot",
-            "required": false,
-            "value": "5058236569"
+            "description": "Get API_ID from my.telegram.org",
+            "required": true,
+            "value": ""
         },
         "BOT_TOKEN": {
-            "description": "fill with the pyrogram session string of your assistant account",
-            "required": false
+            "description": "Your bot token. Get one from @BotFather",
+            "required": true,
+            "value": ""
         },
         "MONGO_DB_URI": {
-            "description": "fill with your telegram id as the owner of the bot",
-            "required": false,
-            "value": "5058236569"
-        },
-        "OWNER_USERNAME": {
-            "description": "fill with the pyrogram session string of your assistant account",
-            "required": false
+            "description": "Required for database connections.",
+            "required": true,
+            "value": ""
         },
         "OWNER_ID": {
-            "description": "fill with your telegram id as the owner of the bot",
-            "required": false,
+            "description": "Your user ID as an integer.",
+            "required": true,
+            "value": "5058236569"
+        },
+        "LOG_CHANNEL_ID": {
+            "description": "Event logs channel to note down important bot level events, recommend to make this public. ex: '-123456'",
+            "required": true,
             "value": "5058236569"
         },
         "SUDO_USERS": {
-            "description": "fill with the pyrogram session string of your assistant account",
-            "required": false
+            "description": "Users who can use scan cmds.",
+            "required": true
+        },
+        "GBAN_CHATS": {
+            "description": "Chats where you store bots and the assitant will broadcast the gban cmd.",
+            "required": true
         },
         "SUPPORT_CHAT": {
-            "description": "fill with your telegram id as the owner of the bot",
-            "required": false,
-            "value": "5058236569"
-        },
-        "UPDATE": {
-            "description": "fill with your telegram id as the owner of the bot",
-            "required": false,
+            "description": "Your Telegram support group chat username where your users will go to request for scan.",
+            "required": true,
             "value": "5058236569"
         }
     }

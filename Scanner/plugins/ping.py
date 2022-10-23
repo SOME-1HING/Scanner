@@ -3,12 +3,12 @@ import platform
 import time
 from platform import python_version
 from psutil import cpu_percent, virtual_memory, disk_usage, boot_time
-from ShikimoriMusic.vars import SUDO_USERS
+from Scanner.vars import SUDO_USERS
 from pyrogram import Client
 from pyrogram.types import Message
 from pyrogram import __version__
 
-from ShikimoriMusic.setup.filters import command
+from Scanner.setup.filters import command
 
 StartTime = time.time()
 

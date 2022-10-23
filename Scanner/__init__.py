@@ -2,7 +2,7 @@ import logging
 import asyncio
 import time
 from aiohttp import ClientSession
-from ShikimoriMusic.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
+from Scanner.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
 
 from pytgcalls import PyTgCalls
 from pyrogram import Client
@@ -13,9 +13,9 @@ from telethon.sessions import MemorySession
 starttime = time.time()
 
 # enable logging
-FORMAT = "[ShikimoriMusic] %(message)s"
+FORMAT = "[Scanner] %(message)s"
 logging.basicConfig(
-    handlers=[logging.FileHandler("ShikimoriMusic_logs.txt"), logging.StreamHandler()],
+    handlers=[logging.FileHandler("Scanner_logs.txt"), logging.StreamHandler()],
     level=logging.INFO,
     format=FORMAT,
     datefmt="[%X]",
@@ -23,14 +23,14 @@ logging.basicConfig(
 logging.getLogger("pyrogram").setLevel(logging.INFO)
 logging.getLogger('ptbcontrib.postgres_persistence.postgrespersistence').setLevel(logging.WARNING)
 
-LOGGER = logging.getLogger('[ShikimoriMusic]')
-LOGGER.info("ShikimoriMusic is starting. | Built by SOME1HING. | Licensed under GPLv3.")
+LOGGER = logging.getLogger('[Scanner]')
+LOGGER.info("Scanner is starting. | Built by SOME1HING. | Licensed under GPLv3.")
 LOGGER.info("Handled by: github.com/SOME-1HING (t.me/SOME1HING)")
 
 
 calls = Client(SESSION_STRING, API_ID, API_HASH)
 pytgcalls = PyTgCalls(calls)
-pbot = Client("ShikimoriMusic", API_ID, API_HASH, bot_token=BOT_TOKEN)
+pbot = Client("Scanner", API_ID, API_HASH, bot_token=BOT_TOKEN)
 ubot = Client(SESSION_STRING, API_ID, API_HASH)
 
 aiohttpsession = ClientSession()

@@ -2,7 +2,7 @@ FROM debian:11
 FROM python:3.10.5-slim-buster
 FROM nikolaik/python-nodejs:python3.10-nodejs17
 
-WORKDIR /ShikimoriMusic/
+WORKDIR /Scanner/
 
 RUN /usr/local/bin/python -m pip install --upgrade pip
 RUN apt-get -y install git
@@ -17,4 +17,4 @@ COPY requirements.txt .
 RUN pip3 install wheel
 RUN pip3 install --no-cache-dir -U -r requirements.txt
 COPY . .
-CMD ["python3", "-m", "ShikimoriMusic"]
+CMD ["python3", "-m", "Scanner"]

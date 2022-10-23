@@ -3,13 +3,13 @@ import platform
 import time
 from psutil import cpu_percent, virtual_memory, disk_usage, boot_time
 from platform import python_version
-from ShikimoriMusic.mongo.global_bans_db import num_gbanned_users
-from ShikimoriMusic.setup.filters import command
+from Scanner.mongo.global_bans_db import num_gbanned_users
+from Scanner.setup.filters import command
 from pyrogram import __version__ as pyrover
 from pyrogram.types import Message
     
-from ShikimoriMusic import starttime, pbot
-from  ShikimoriMusic.vars import SUDO_USERS, SUPPORT_CHAT
+from Scanner import starttime, pbot
+from  Scanner.vars import SUDO_USERS, SUPPORT_CHAT
 
 def get_readable_time(seconds: int) -> str:
     count = 0

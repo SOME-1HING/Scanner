@@ -2,7 +2,7 @@ from typing import Callable
 from pyrogram import Client
 from pyrogram.types import Message
 
-from ShikimoriMusic.vars import SUDO_USERS
+from Scanner.vars import SUDO_USERS
 
 
 def errors(func: Callable) -> Callable:

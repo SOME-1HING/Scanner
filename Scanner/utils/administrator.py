@@ -1,8 +1,8 @@
 from pyrogram.errors.exceptions.forbidden_403 import ChatWriteForbidden
 from pyrogram.types import Message
 
-from ShikimoriMusic import pbot
-from ShikimoriMusic.vars import SUDO_USERS
+from Scanner import pbot
+from Scanner.vars import SUDO_USERS
 
 async def member_permissions(chat_id: int, user_id: int):
     perms = []
