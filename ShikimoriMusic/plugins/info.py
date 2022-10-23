@@ -54,14 +54,13 @@ async def PPScmd(event):
         await tbot.send_message(event.chat.id, "2")
         
         photos = await event.client.get_profile_photos(user.sender)
+        await tbot.send_message(event.chat.id, "3")
 
-        try:
-            await tbot.send_photo(event.chat.id, photos, caption="hmm") 
-            pic = await generate_cover(user.sender, photos)
-        except:
-            send_photos = await event.client.download_media(photos[0])
-            await tbot.send_photo(event.chat.id, send_photos, caption="hmm") 
-            pic = await generate_cover(user.sender, send_photos)
+        send_photos = await event.client.download_media(photos[0])
+        await tbot.send_message(event.chat.id, "4")
+        await tbot.send_photo(event.chat.id, send_photos, caption="hmm") 
+        pic = await generate_cover(user.sender, send_photos)
+        await tbot.send_message(event.chat.id, "6")
         await tbot.send_photo(event.chat.id, pic, caption="hmm") 
     except:
         await tbot.send_message(event.chat.id, "ERROR")
