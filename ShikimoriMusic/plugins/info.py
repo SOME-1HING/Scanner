@@ -43,11 +43,13 @@ async def generate_cover(user, user_dp):
 @tbot.on(events.NewMessage(pattern="^[!/]info$"))
 async def PPScmd(event):
     try: 
+        await tbot.send_message(event.chat.id, "1")
         user = await event.get_reply_message()
         if user:
             photos = await event.client.get_profile_photos(user.sender)
         else:
             photos = await event.client.get_profile_photos(event.chat_id)
+        await tbot.send_message(event.chat.id, "3")
         try:
             await tbot.send_photo(event.chat.id, photos, caption="hmm") 
             pic = await generate_cover(user.sender, photos)
