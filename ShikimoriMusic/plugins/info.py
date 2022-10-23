@@ -1,6 +1,6 @@
 import aiohttp
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
-import base64
+import aiofiles
 from pyrogram.errors import UserAlreadyParticipant, UserNotParticipant
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.errors import UserNotParticipant
@@ -13,8 +13,15 @@ from telethon.tl.functions.photos import *
 from telethon.tl.types import *
 from html import *
 
+from telegraph import Telegraph, exceptions, upload_file
+
 from ShikimoriMusic import ASS_USERNAME, BOT_ID, ASS_NAME, ASS_ID, BOT_NAME, BOT_USERNAME, LOGGER, pbot, tbot
 from ShikimoriMusic.setup.filters import command
+
+Hero = "Scanner"
+telegraph = Telegraph()
+r = telegraph.create_account(short_name=Hero)
+auth_url = r["auth_url"]
 
 # Change image size
 def changeImageSize(maxWidth, maxHeight, image):
@@ -26,10 +33,17 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 async def generate_cover(user, user_dp):
+    async with aiohttp.ClientSession() as session:
+        async with session.get(user_dp) as resp:
+            if resp.status == 200:
+                f = await aiofiles.open("user_dp.png", mode="wb")
+                await f.write(await resp.read())
+                await f.close()
     LOGGER.info("e1")
     image = Image.open("etc/info_img.jpg")
+    dp = Image.open(f"./user_dp.png")
     image1 = changeImageSize(300, 424, image)
-    image11 = changeImageSize(247, 180, user_dp)
+    image11 = changeImageSize(247, 180, dp)
         
         
     image1.paste(image11, (26,90))
@@ -48,6 +62,18 @@ async def generate_cover(user, user_dp):
     LOGGER.info("e3")
     return
     
+def tgm_uploder(file):
+    Error = None
+    Link = None
+    try:
+        media_urls = upload_file(file)
+    except exceptions.TelegraphException as exc:
+        Error = "ERROR: " + str(exc)
+    else:
+        Link = f"https://telegra.ph{media_urls[0]}"
+
+    return Link, Error
+
 @tbot.on(events.NewMessage(pattern="^[!/]info$"))
 async def PPScmd(event):
 #        """Gets the profile photos of replied users, channels or chats"""
@@ -56,17 +82,18 @@ async def PPScmd(event):
         if user:
             photos = await event.client.get_profile_photos(user.sender)
             
-            photo = await event.client.download_media(photos[0])
+            photo = await event.client.download_media(photos[0], "./")
             await tbot.send_file(event.chat.id, photo)
-            
-            await generate_cover(user.sender, photo)
+            link, error = tgm_uploder(photo)
+            await tbot.send_message(f"{link} + {error}")
+            await generate_cover(user.sender, link)
             await tbot.send_file(event.chat.id, f"{user.sender.id}.png")
             LOGGER.info(f"{user.sender.id}.png")
         else:
-            await tbot.send_message("Reply to user mate")
+            await tbot.send_message(event.chat.id, "Reply to user mate")
             
     except:
-        await tbot.send_message("Error")
+        await tbot.send_message(event.chat.id, "Error")
 
         
 

@@ -26,5 +26,6 @@ youtube-search-python
 youtube-search
 telethon
 yt-dlp
+telegraph
 regex
 html5lib
