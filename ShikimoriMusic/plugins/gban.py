@@ -101,7 +101,7 @@ async def gscan(hmm):
     else:
        reason = f"{res}. Gscaned by {hmm.sender_id}"
     async for user in tbot.iter_participants(hmm.chat_id):
-        if not user.deleted or user.id not in SUDO_USERS or user.id != BOT_ID or user.id != ASS_ID or user.id in [777000, 1087968824]:
+        if not user.deleted and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824]:
             try:
                 for chat_id in GBAN_CHATS:
                     await ubot.send_message(
