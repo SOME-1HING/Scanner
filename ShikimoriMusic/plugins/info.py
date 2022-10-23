@@ -5,6 +5,7 @@ from pyrogram.errors import UserAlreadyParticipant, UserNotParticipant
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.errors import UserNotParticipant
 from pyrogram import Client
+from telethon import events
 
 from ShikimoriMusic import ASS_USERNAME, BOT_ID, ASS_NAME, ASS_ID, BOT_NAME, BOT_USERNAME, pbot, tbot
 from ShikimoriMusic.setup.filters import command
@@ -48,3 +49,19 @@ async def info(client: Client, message: Message):
     user = message.from_user
     profile = await generate_cover(user)
     message.reply_photo(profile, caption="hmm")
+    
+@tbot.on(events.NewMessage(pattern="^[!/]info$"))
+async def PPScmd(event):
+    try: 
+        user = await event.get_reply_message()
+        if user:
+            photos = await event.client.get_profile_photos(user.sender)
+        else:
+            photos = await event.client.get_profile_photos(event.chat_id)
+        try:
+            pic = await generate_cover(photos)
+        except:
+            send_photos = await event.client.download_media(photos[0])
+            pic = await generate_cover(photos)
+    except:
+        await tbot.send_photo(pic, caption="hmm")
