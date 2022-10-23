@@ -32,7 +32,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     newImage = image.resize((newWidth, newHeight))
     return newImage
 
-async def generate_cover(user, user_dp):
+async def generate_cover(user_id, first_name, user_dp):
     async with aiohttp.ClientSession() as session:
         async with session.get(user_dp) as resp:
             if resp.status == 200:
@@ -53,16 +53,15 @@ async def generate_cover(user, user_dp):
 
     image4 = ImageDraw.Draw(image1)
 
-    LOGGER.info("e2")
     # title
-    '''image4.text((60, 320), text=user.first_name, fill="white", font = font3, align ="left") 
-    image4.text((60, 360), text=user.id, fill="white", font = font3, align ="left") '''
+    image4.text((60, 320), text=first_name, fill="white", font = font3, align ="left") 
+    image4.text((60, 360), text=user_id, fill="white", font = font3, align ="left")
 
     LOGGER.info("e3")
-    image1.save(f"{user.id}.png")
+    image1.save(f"{user_id}.png")
     LOGGER.info("e4")
     return
-    
+
 def tgm_uploder(file):
     Error = None
     Link = None
@@ -86,8 +85,7 @@ async def PPScmd(event):
             photo = await event.client.download_media(photos[0], "./")
             await tbot.send_file(event.chat.id, photo)
             link, error = tgm_uploder(photo)
-            await generate_cover(user.sender, link)
-            await tbot.send_message(event.chat.id, "6")
+            await generate_cover(user.sender.id, user.sender.first_name, link)
             await tbot.send_file(event.chat.id, f"{user.sender.id}.png")
             LOGGER.info(f"{user.sender.id}.png")
         else:
