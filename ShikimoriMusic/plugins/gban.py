@@ -98,3 +98,22 @@ async def gscan(hmm):
                 db.gban_user(user.id, reason)
             except:
                 pass
+            
+@tbot.on(events.NewMessage(pattern="^/grevert ?(.*)"))
+async def grevert(hmm):
+    if not hmm.is_group:
+        return
+    if hmm.is_group:
+        if hmm.sender_id not in SUDO_USERS:
+            return
+    async for user in tbot.iter_participants(hmm.chat_id):
+        if not user.deleted and user.id not in [777000, 1087968824]:
+            try:
+                for chat_id in GBAN_CHATS:
+                    await ubot.send_message(
+                        chat_id,
+                        f"/ungban {user.id}"
+                    )
+                db.ungban_user(user.id)
+            except:
+                pass
