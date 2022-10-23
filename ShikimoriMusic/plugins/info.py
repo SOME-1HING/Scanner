@@ -48,22 +48,23 @@ async def generate_cover(user, user_dp):
     
 @tbot.on(events.NewMessage(pattern="^[!/]info$"))
 async def PPScmd(event):
-    try: 
-        await tbot.send_message(event.chat.id, "1")
+#        """Gets the profile photos of replied users, channels or chats"""
+    try:
         user = await event.get_reply_message()
-        await tbot.send_message(event.chat.id, "2")
-        
-        photos = await event.client.get_profile_photos(user.sender)
-        await tbot.send_message(event.chat.id, "3")
-
-        send_photos = await event.client.download_media(photos[0])
-        await tbot.send_message(event.chat.id, "4")
-        await tbot.send_photo(event.chat.id, send_photos, caption="hmm") 
-        pic = await generate_cover(user.sender, send_photos)
-        await tbot.send_message(event.chat.id, "6")
-        await tbot.send_photo(event.chat.id, pic, caption="hmm") 
+        if user:
+            photos = await event.client.get_profile_photos(user.sender)
+        else:
+            photos = await event.client.get_profile_photos(event.chat_id)
+        try:
+            await event.client.send_file(event.chat.id, photos)
+        except:
+            photo = await event.client.download_profile_photo(event.chat_id)
+            await tbot.send_file(event.chat.id, photo)
+            hmm = await generate_cover(user.sender, photo)
+            await tbot.send_file(event.chat.id, hmm)
     except:
-        await tbot.send_message(event.chat.id, "ERROR")
+        await tbot.send_message("Reply to user mate")
+
         
 
 
