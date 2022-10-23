@@ -1,18 +1,20 @@
 {
-    "name": "Scanner Bor",
-    "description": "A Powerful Scanner for Telegram group management bots.",
-    "keywords": [
-       "telegram",
-       "advance"
-    ],
- "buildpacks": [
-  {
-    "url": "https://github.com/heroku/heroku-buildpack-python"
-  },
-  {
-    "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
-  }
-],  
+	"name": "Scanner Bor",
+	"description": "A Powerful Scanner for Telegram group management bots.",
+	"keywords": [
+			"telegram",
+			"advance"
+	],
+	"logo":    "https://i.imgur.com/RSHi6aH.jpg",  
+	"repository": "https://github.com/SOME-1HING/Scanner",
+	"buildpacks": [
+		{
+			"url": "https://github.com/heroku/heroku-buildpack-python"
+		},
+		{
+			"url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+		}
+	],  
  "env": {
     "ENV": {
         "API_HASH": {
