@@ -1,3 +1,5 @@
+from io import BytesIO
+
 from pyrogram.types import Message
 from pyrogram import Client
 
@@ -69,6 +71,30 @@ async def revert(_, message: Message):
         )
     db.ungban_user(user_id)
     
+@Client.on_message(command("scanlist"))
+async def scanlist(_, message: Message):
+    banned_users = db.get_gban_list()
+    
+    if not banned_users:
+        await message.reply_text(
+            "There aren't any gbanned users! You're kinder than I expected...",
+        )
+        return
+
+    banfile = "Screw these guys.\n"
+    for user in banned_users:
+        banfile += f"[x] {user['name']} - {user['user_id']}\n"
+        if user["reason"]:
+            banfile += f"Reason: {user['reason']}\n"
+
+    with BytesIO(str.encode(banfile)) as output:
+        output.name = "gbanlist.txt"
+        await message.reply_document(
+            document=output,
+            filename="gbanlist.txt",
+            caption="Here is the list of currently gbanned users.",
+        )
+
 from telethon.tl.types import ChatBannedRights
 from telethon.tl.functions.channels import EditBannedRequest
 from telethon import events
