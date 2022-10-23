@@ -63,5 +63,6 @@ async def PPScmd(event):
         except:
             send_photos = await event.client.download_media(photos[0])
             pic = await generate_cover(photos)
+        await tbot.send_photo(pic, caption="hmm") 
     except:
-        await tbot.send_photo(pic, caption="hmm")
+        await tbot.send_message("ERROR")
