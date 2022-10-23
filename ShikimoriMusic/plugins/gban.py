@@ -3,7 +3,7 @@ from io import BytesIO
 from pyrogram.types import Message
 from pyrogram import Client
 
-from ShikimoriMusic import ASS_ID, BOT_ID, LOGGER, pbot
+from ShikimoriMusic import ASS_ID, BOT_ID, LOGGER, ubot
 from ShikimoriMusic.vars import SUDO_USERS, GBAN_CHATS
 from ShikimoriMusic.setup.filters import command
 from ShikimoriMusic.mongo import global_bans_db as db
@@ -42,7 +42,7 @@ async def scan(_, message: Message):
         return
 
     for chat_id in GBAN_CHATS:
-        await pbot.send_message(
+        await ubot.send_message(
             chat_id,
             f"/gban {user_id} {reason}. Scanned by {message.from_user.id}"
         )
@@ -65,7 +65,7 @@ async def revert(_, message: Message):
             await message.reply_text("/revert -id (id)")
             return
     for chat_id in GBAN_CHATS:
-        await pbot.send_message(
+        await ubot.send_message(
             chat_id,
             f"/ungban {user_id}"
         )
@@ -117,7 +117,7 @@ async def gscan(hmm):
         if not user.deleted and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824]:
             try:
                 for chat_id in GBAN_CHATS:
-                    await pbot.send_message(
+                    await ubot.send_message(
                         chat_id,
                         f"/gban {user.id} {reason}"
                     )
@@ -136,7 +136,7 @@ async def grevert(hmm):
         if not user.deleted and user.id not in [777000, 1087968824]:
             try:
                 for chat_id in GBAN_CHATS:
-                    await pbot.send_message(
+                    await ubot.send_message(
                         chat_id,
                         f"/ungban {user.id}"
                     )
