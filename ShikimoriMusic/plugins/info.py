@@ -26,6 +26,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     return newImage
 
 async def generate_cover(user, user_dp):
+    LOGGER.info("e1")
     image = Image.open("etc/info_img.jpg")
     image1 = changeImageSize(300, 424, image)
     image11 = changeImageSize(247, 180, user_dp)
@@ -38,13 +39,14 @@ async def generate_cover(user, user_dp):
 
     image4 = ImageDraw.Draw(image1)
 
+    LOGGER.info("e2")
     # title
     image4.text((60, 320), text=user.first_name, fill="white", font = font3, align ="left") 
     image4.text((60, 360), text=user.id, fill="white", font = font3, align ="left") 
 
-    image1.save(f"final.png")
-    final = f"final.png"
-    return final
+    image1.save(f"{user.id}.png")
+    LOGGER.info("e3")
+    return
     
 @tbot.on(events.NewMessage(pattern="^[!/]info$"))
 async def PPScmd(event):
@@ -53,19 +55,18 @@ async def PPScmd(event):
         user = await event.get_reply_message()
         if user:
             photos = await event.client.get_profile_photos(user.sender)
-        else:
-            photos = await event.client.get_profile_photos(event.chat_id)
-        try:
-            await event.client.send_file(event.chat.id, photos)
-        except:
-            photo = await event.client.download_profile_photo(event.chat_id)
+            
+            photo = await event.client.download_media(photos[0])
             await tbot.send_file(event.chat.id, photo)
             
-            hmm = await generate_cover(user.sender, photo)
-            await tbot.send_file(event.chat.id, hmm)
-            LOGGER.info(f"{hmm}")
+            await generate_cover(user.sender, photo)
+            await tbot.send_file(event.chat.id, f"{user.sender.id}.png")
+            LOGGER.info(f"{user.sender.id}.png")
+        else:
+            await tbot.send_message("Reply to user mate")
+            
     except:
-        await tbot.send_message("Reply to user mate")
+        await tbot.send_message("Error")
 
         
 
