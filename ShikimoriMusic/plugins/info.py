@@ -39,12 +39,6 @@ async def generate_cover(user, user_dp):
     image1.save(f"final.png")
     final = f"temp.png"
     return final
-
-@Client.on_message(command("info"))
-async def info(client: Client, message: Message):
-    user = message.from_user
-    profile = await generate_cover(user)
-    message.reply_photo(profile, caption="hmm")
     
 @tbot.on(events.NewMessage(pattern="^[!/]info$"))
 async def PPScmd(event):
