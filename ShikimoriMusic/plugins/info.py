@@ -20,7 +20,7 @@ def changeImageSize(maxWidth, maxHeight, image):
 
 async def generate_cover(user):
     user_pic = []
-    async for photo in tbot.get_profile_photos(user.id):
+    async for photo in tbot.get_profile_photos(user):
        user_pic.append(photo)
     user_dp = user_pic[0] 
     image = Image.open("etc/info_img.jpg")

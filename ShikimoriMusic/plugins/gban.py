@@ -60,7 +60,6 @@ async def revert(_, message: Message):
             hmmm = message.text.split("-id")[1]
             user_id = int(hmmm.strip())
         except:
-            LOGGER.info(message.text)
             await message.reply_text("/revert -id (id)")
             return
     if int(user_id) in SUDO_USERS:
