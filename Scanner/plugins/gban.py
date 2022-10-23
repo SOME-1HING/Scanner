@@ -47,6 +47,16 @@ async def scan(_, message: Message):
             f"/gban {user_id} {reason} Proof: {proof}. Scanned by {message.from_user.id}"
         )
     db.gban_user(user_id, reason)
+    await message.reply_text(
+        f"""
+# SCANNED
+User ID: {user_id}
+Reason: {reason}
+Proof: {proof}
+
+Scanned By: {message.from_user.id}
+"""
+    )
     await pbot.send_message(
         LOG_CHANNEL_ID,
         f"""
@@ -81,6 +91,14 @@ async def revert(_, message: Message):
             f"/ungban {user_id}"
         )
     db.ungban_user(user_id)
+    await message.reply_text(
+        f"""
+# REVERTED
+User ID: {user_id}
+
+Reverted By: {message.from_user.id}
+"""
+    )
     await pbot.send_message(
         LOG_CHANNEL_ID,
         f"""
@@ -142,6 +160,15 @@ async def gscan(hmm):
                         f"/gban {user.id} {reason}"
                     )
                 db.gban_user(user.id, reason)
+                await hmm.reply(
+        f"""
+# GSCANNED
+User ID: {user.id}
+Reason: {reason}
+
+GScanned By: {hmm.sender_id}
+"""
+    )
                 await pbot.send_message(
                     LOG_CHANNEL_ID,
         f"""
@@ -171,6 +198,14 @@ async def grevert(hmm):
                         f"/ungban {user.id}"
                     )
                 db.ungban_user(user.id)
+                await hmm.reply(
+        f"""
+# GREVERTED
+User ID: {user.id}
+
+GReverted By: {hmm.sender_id}
+"""
+    )
                 await pbot.send_message(
                     LOG_CHANNEL_ID,
         f"""
