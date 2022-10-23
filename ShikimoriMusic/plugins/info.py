@@ -19,11 +19,7 @@ def changeImageSize(maxWidth, maxHeight, image):
     newImage = image.resize((newWidth, newHeight))
     return newImage
 
-async def generate_cover(user):
-    user_pic = []
-    async for photo in tbot.get_profile_photos(user):
-       user_pic.append(photo)
-    user_dp = user_pic[0] 
+async def generate_cover(user, user_dp):
     image = Image.open("etc/info_img.jpg")
     image1 = changeImageSize(300, 424, image)
     image11 = changeImageSize(247, 180, user_dp)
@@ -59,10 +55,12 @@ async def PPScmd(event):
         else:
             photos = await event.client.get_profile_photos(event.chat_id)
         try:
-            pic = await generate_cover(photos)
+            await tbot.send_photo(photos, caption="hmm") 
+            pic = await generate_cover(user.sender, photos)
         except:
             send_photos = await event.client.download_media(photos[0])
-            pic = await generate_cover(photos)
+            await tbot.send_photo(send_photos, caption="hmm") 
+            pic = await generate_cover(user.sender, send_photos)
         await tbot.send_photo(pic, caption="hmm") 
     except:
         await tbot.send_message("ERROR")

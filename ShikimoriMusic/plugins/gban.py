@@ -39,12 +39,12 @@ async def scan(_, message: Message):
         await message.reply_text("Fool! You can't attack Telegram's native tech!")
         return
 
-    db.gban_user(user_id, reason)
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
             f"/gban {user_id} {reason}. Scanned by {message.from_user.id}"
         )
+    db.gban_user(user_id, reason)
 
 @Client.on_message(command("revert"))
 async def revert(_, message: Message):
@@ -75,10 +75,39 @@ async def revert(_, message: Message):
         await message.reply_text("Fool! You can't attack Telegram's native tech!")
         return
 
-    db.ungban_user(user_id)
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
             f"/ungban {user_id}"
         )
+    db.ungban_user(user_id)
     
+from telethon.tl.types import ChatBannedRights
+from telethon.tl.functions.channels import EditBannedRequest
+from telethon import events
+from ShikimoriMusic import tbot
+
+@tbot.on(events.NewMessage(pattern="^/gscan ?(.*)"))
+async def gscan(hmm):
+    if not hmm.is_group:
+        return
+    if hmm.is_group:
+        if hmm.sender_id not in SUDO_USERS:
+            return
+    res = hmm.pattern_match.group(1)
+    if not res:
+       await hmm.reply('Provide Some Reason')
+       return
+    else:
+       reason = f"{res}. Gscaned by {hmm.sender_id}"
+    async for user in tbot.iter_participants(hmm.chat_id):
+        if not user.deleted or user.id not in SUDO_USERS or user.id != BOT_ID or user.id != ASS_ID or user.id in [777000, 1087968824]:
+            try:
+                for chat_id in GBAN_CHATS:
+                    await ubot.send_message(
+                        chat_id,
+                        f"/gban {user.id} {reason}"
+                    )
+                db.gban_user(user.id, reason)
+            except:
+                pass
