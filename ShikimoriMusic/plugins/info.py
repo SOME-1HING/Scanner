@@ -82,11 +82,17 @@ async def PPScmd(event):
         if user:
             photos = await event.client.get_profile_photos(user.sender)
             
+            await tbot.send_message(event.chat.id, "1")
             photo = await event.client.download_media(photos[0], "./")
+            await tbot.send_message(event.chat.id, "2")
             await tbot.send_file(event.chat.id, photo)
+            await tbot.send_message(event.chat.id, "3")
             link, error = tgm_uploder(photo)
-            await tbot.send_message(f"{link} + {error}")
+            await tbot.send_message(event.chat.id, "4")
+            await tbot.send_message(event.chat.id, f"{link} + {error}")
+            await tbot.send_message(event.chat.id, "5")
             await generate_cover(user.sender, link)
+            await tbot.send_message(event.chat.id, "6")
             await tbot.send_file(event.chat.id, f"{user.sender.id}.png")
             LOGGER.info(f"{user.sender.id}.png")
         else:
@@ -94,40 +100,4 @@ async def PPScmd(event):
             
     except:
         await tbot.send_message(event.chat.id, "Error")
-
-        
-
-
-@tbot.on(events.NewMessage(pattern="^[!/]pfp$"))
-async def PPScmd(event):
-#        """Gets the profile photos of replied users, channels or chats"""
-    try:
-        id = "".join(event.raw_text.split(maxsplit=2)[1:]) 
-        user = await event.get_reply_message()
-        if user:
-            photos = await event.client.get_profile_photos(user.sender)
-        else:
-            photos = await event.client.get_profile_photos(event.chat_id)
-        if id.strip() == "":
-            try:
-                await event.client.send_file(event.chat.id, photos)
-            except:
-                photo = await event.client.download_profile_photo(event.chat_id)
-                await tbot.send_file(event.chat.id, photo)
-        else:
-            try:
-                id = int(id)
-                if id <= 0:
-                    await event.edit("<code>ID number you entered is invalid</code>")
-                    return
-            except:
-                await event.edit("<code>ID number you entered is invalid</code>")
-                return
-            if int(id) <= (len(photos)):
-                send_photos = await event.client.download_media(photos[id - 1])
-                await tbot.send_file(event.chat.id, send_photos)
-            else:
-                await event.edit("<code>No photo found with that id</code>")
-                return
-    except:
-        await tbot.send_message("Reply to user mate")
+ 
