@@ -91,7 +91,7 @@ async def scanlist(_, message: Message):
         output.name = "gbanlist.txt"
         await message.reply_document(
             document=output,
-            filename="gbanlist.txt",
+            file_name="gbanlist.txt",
             caption="Here is the list of currently gbanned users.",
         )
 

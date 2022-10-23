@@ -1,6 +1,6 @@
 import aiohttp
 from PIL import Image, ImageFont, ImageDraw, ImageFilter
-
+import base64
 from pyrogram.errors import UserAlreadyParticipant, UserNotParticipant
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, Message
 from pyrogram.errors import UserNotParticipant
@@ -13,7 +13,7 @@ from telethon.tl.functions.photos import *
 from telethon.tl.types import *
 from html import *
 
-from ShikimoriMusic import ASS_USERNAME, BOT_ID, ASS_NAME, ASS_ID, BOT_NAME, BOT_USERNAME, pbot, tbot
+from ShikimoriMusic import ASS_USERNAME, BOT_ID, ASS_NAME, ASS_ID, BOT_NAME, BOT_USERNAME, LOGGER, pbot, tbot
 from ShikimoriMusic.setup.filters import command
 
 # Change image size
@@ -43,7 +43,7 @@ async def generate_cover(user, user_dp):
     image4.text((60, 360), text=user.id, fill="white", font = font3, align ="left") 
 
     image1.save(f"final.png")
-    final = f"temp.png"
+    final = f"final.png"
     return final
     
 @tbot.on(events.NewMessage(pattern="^[!/]info$"))
@@ -60,8 +60,10 @@ async def PPScmd(event):
         except:
             photo = await event.client.download_profile_photo(event.chat_id)
             await tbot.send_file(event.chat.id, photo)
+            
             hmm = await generate_cover(user.sender, photo)
             await tbot.send_file(event.chat.id, hmm)
+            LOGGER.info(f"{hmm}")
     except:
         await tbot.send_message("Reply to user mate")
 
