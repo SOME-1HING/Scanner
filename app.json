@@ -32,6 +32,11 @@
 			"required": true,
 			"value": ""
 	},
+	"SESSION_STRING": {
+			"description": "Pyrogram String Session of your assistant account.",
+			"required": true,
+			"value": ""
+	},
 	"MONGO_DB_URI": {
 			"description": "Required for database connections.",
 			"required": true,
