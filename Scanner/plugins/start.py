@@ -19,7 +19,7 @@ TIME_DURATION_UNITS = (
     ("sec", 1),
 )
 
-@Client.on_message(command("start") & filters.private & ~filters.edited)
+@Client.on_message(command("start") & filters.private)
 async def start_(client: Client, message: Message):
     await message.reply_text(
         f"""ᴡᴇʟᴄᴏᴍᴇ : {message.from_user.mention()}
@@ -48,7 +48,7 @@ Usage:
         ),
     )
 
-@Client.on_message(command("start") & ~filters.private & ~filters.edited)
+@Client.on_message(command("start") & ~filters.private)
 async def start_grp(client: Client, message: Message):
     botuptime = get_readable_time((time.time() - starttime))
     await message.reply_text(
