@@ -58,7 +58,7 @@ Scanned By: {db.get_gbanned_user(user_id)["scanner"]}
             chat_id,
             f"/gban {user_id} {reason} Proof: {proof}. Scanned by {message.from_user.id}"
         )
-    db.gban_user(user_id, message.from_user.id, f"{reason} Proof: {proof}. Scanned by {message.from_user.id}")
+    db.gban_user(user_id, message.from_user.id, f"{reason} Proof: {proof}")
     await message.reply_text(
         f"""
 # SCANNED
