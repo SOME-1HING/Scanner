@@ -25,6 +25,8 @@ async def scan(_, message: Message):
         return
     try:
         user_id, reason, proof = extract_gban(message.text)
+    except ValueError:
+        await message.reply_text("id must be integer.")
     except:
         await message.reply_text("/scan -id (id) -r (reason)  -p (proof link)")
         return
@@ -82,9 +84,14 @@ async def revert(_, message: Message):
         try:
             hmmm = message.text.split("-id")[1]
             user_id = int(hmmm.strip())
+        except ValueError:
+            await message.reply_text("id must be integer.")
         except:
             await message.reply_text("/revert -id (id)")
             return
+    if not db.is_user_gbanned(user_id):
+        await message.reply_text(f"User ID: {user_id} is not scanned.")
+        return
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
