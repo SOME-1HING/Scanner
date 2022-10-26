@@ -1,14 +1,12 @@
 import logging
-import asyncio
 import time
+
 from aiohttp import ClientSession
-from Scanner.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
-
-from pytgcalls import PyTgCalls
 from pyrogram import Client
-
 from telethon import TelegramClient
 from telethon.sessions import MemorySession
+
+from Scanner.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
 
 starttime = time.time()
 
@@ -27,11 +25,8 @@ LOGGER = logging.getLogger('[Scanner]')
 LOGGER.info("Scanner is starting. | Built by SOME1HING. | Licensed under GPLv3.")
 LOGGER.info("Handled by: github.com/SOME-1HING (t.me/SOME1HING)")
 
-
-calls = Client(SESSION_STRING, API_ID, API_HASH)
-pytgcalls = PyTgCalls(calls)
 pbot = Client("Scanner", API_ID, API_HASH, bot_token=BOT_TOKEN)
-ubot = Client(SESSION_STRING, API_ID, API_HASH)
+ubot = Client(API_ID, API_HASH, session_string=SESSION_STRING)
 
 aiohttpsession = ClientSession()
 

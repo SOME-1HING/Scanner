@@ -8,7 +8,7 @@ ffmpeg-python
 future
 gitpython
 python-telegram-bot==20.0a4
-pyrogram==1.4.6
+pyrogram
 hurry.filesize
 motor
 pillow
