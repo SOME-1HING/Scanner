@@ -27,6 +27,7 @@ async def scan(_, message: Message):
         user_id, reason, proof = extract_gban(message.text)
     except ValueError:
         await message.reply_text("id must be integer.")
+        return
     except:
         await message.reply_text("/scan -id (id) -r (reason)  -p (proof link)")
         return
