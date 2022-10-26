@@ -5,23 +5,11 @@ GloballyBannedUsers = db.guser
 GBANNED_LIST = set()
 
 
-def gban_user(user_id, reason=None):
+def gban_user(user_id, scanner, reason=None):
     GloballyBannedUsers.update_one(
-        {"user_id": user_id}, {"$set": {"reason": reason}}, upsert=True
+        {"user_id": user_id}, {"$set": {"reason": reason, "scanner": scanner}}, upsert=True
     )
     __load_gbanned_userid_list()
-
-
-def update_gban_reason(user_id, reason=None):
-    user = GloballyBannedUsers.find_one({"user_id": user_id})
-    if not user:
-        return None
-    old_reason = user["reason"]
-    GloballyBannedUsers.update_one(
-        {"user_id": user_id}, {"$set": {"reason": reason}}, upsert=True
-    )
-    return old_reason
-
 
 def ungban_user(user_id):
     user = GloballyBannedUsers.find_one({"user_id": user_id})

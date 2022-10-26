@@ -42,13 +42,22 @@ async def scan(_, message: Message):
     if user_id in [777000, 1087968824]:
         await message.reply_text("Fool! You can't attack Telegram's native tech!")
         return
+    
+    if db.is_user_gbanned(user_id):
+        await message.reply_text(f"""
+User ID: {user_id} is already scanned.
+Reason: {db.get_gbanned_user(user_id)["reason"]}
+
+Scanned By: {db.get_gbanned_user(user_id)["scanner"]}
+""")
+        return
 
     for chat_id in GBAN_CHATS:
         await ubot.send_message(
             chat_id,
             f"/gban {user_id} {reason} Proof: {proof}. Scanned by {message.from_user.id}"
         )
-    db.gban_user(user_id, reason)
+    db.gban_user(user_id, message.from_user.id, reason)
     await message.reply_text(
         f"""
 # SCANNED
@@ -166,7 +175,7 @@ async def gscan(hmm):
                         chat_id,
                         f"/gban {user.id} {reason}"
                     )
-                db.gban_user(user.id, reason)
+                db.gban_user(user.id, hmm.sender_id, reason)
                 await hmm.reply(
         f"""
 # GSCANNED
