@@ -26,7 +26,7 @@ LOGGER.info("Scanner is starting. | Built by SOME1HING. | Licensed under GPLv3."
 LOGGER.info("Handled by: github.com/SOME-1HING (t.me/SOME1HING)")
 
 pbot = Client("Scanner", API_ID, API_HASH, bot_token=BOT_TOKEN)
-ubot = Client(api_id=API_ID, api_hash=API_HASH, session_string=SESSION_STRING)
+ubot = Client("Client", api_id=API_ID, api_hash=API_HASH, session_string=SESSION_STRING)
 
 aiohttpsession = ClientSession()
 
