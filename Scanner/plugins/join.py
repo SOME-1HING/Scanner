@@ -20,9 +20,10 @@ async def joinchat(client, message):
         stopwords = ["/userbotjoin @", "/botjoin @", "/join @"]
         querywords = query.split()
         resultwords  = [word for word in querywords if word.lower() not in stopwords]
-        link_bokep = ''.join(resultwords[0])
+        username = ''.join(resultwords[0])
     else:
         await message.reply_text("Format: /join @username")
+        return
 
     try:
         user = await USER.get_me()
@@ -30,7 +31,7 @@ async def joinchat(client, message):
         user.first_name = f"{ASS_USERNAME}"
 
     try:
-        await USER.join_chat(link_bokep)
+        await USER.join_chat(f"https://t.me/{username}")
     except UserAlreadyParticipant:
         await message.reply_text(
             f"🔴 **{user.first_name} already join this group !!**",
