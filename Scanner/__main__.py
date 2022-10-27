@@ -4,7 +4,7 @@ import requests
 from pyrogram import Client
 from pytgcalls import idle
 
-from Scanner import LOGGER, pbot, ubot, tbot
+from Scanner import LOGGER, pbot, ubot
 from Scanner.db.global_bans_db import num_gbanned_users
 from Scanner.vars import API_ID, API_HASH, BOT_TOKEN, LOG_CHANNEL_ID
 
@@ -31,8 +31,6 @@ async def load_start():
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
 loop.run_until_complete(load_start())
-
-tbot.start(bot_token=BOT_TOKEN)
 
 Client(
     ":memory:",

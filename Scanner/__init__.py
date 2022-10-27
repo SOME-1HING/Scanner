@@ -46,5 +46,3 @@ if ub.last_name:
 else:
     ASS_NAME = ub.first_name
 ASS_USERNAME = ub.username
-
-tbot = TelegramClient(MemorySession(), API_ID, API_HASH)
