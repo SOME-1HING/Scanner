@@ -126,30 +126,6 @@ User ID: {user_id}
 Reverted By: {message.from_user.id}
 """
     )
-    
-@ubot.on_message(command("scanlist"))
-async def scanlist(_, message: Message):
-    banned_users = db.get_gban_list()
-    
-    if not banned_users:
-        await message.reply_text(
-            "There aren't any gbanned users! You're kinder than I expected...",
-        )
-        return
-
-    banfile = "Screw these guys.\n"
-    for user in banned_users:
-        banfile += f"[x] {user['user_id']}\n"
-        if user["reason"]:
-            banfile += f"Reason: {user['reason']}\n"
-
-    with BytesIO(str.encode(banfile)) as output:
-        output.name = "gbanlist.txt"
-        await message.reply_document(
-            document=output,
-            file_name="gbanlist.txt",
-            caption="Here is the list of currently gbanned users.",
-        )
 
 @ubot.on_message(command("gscan") & filters.group)
 async def gscan(_, message: Message):
@@ -172,6 +148,7 @@ async def gscan(_, message: Message):
         myobject = json.loads(f"{userObject}")
         user = myobject["user"]
         if not user["is_deleted"]  and user['id'] not in SUDO_USERS and user['id'] != BOT_ID and user["id"] != ASS_ID and user['id'] not in [777000, 1087968824] and not user['is_bot']:
+            scanned = []
             try:
                 for chat_id in GBAN_CHATS:
                     await ubot.send_message(
@@ -179,28 +156,19 @@ async def gscan(_, message: Message):
                         f"/gban {user['id']} {reason}"
                     )
                 db.gban_user(user['id'], message.from_user.id, reason)
-                await message.reply_text(
-        f"""
-# GSCANNED
-User ID: {user['id']}
-Reason: {reason}
+                scanned.append(user['id'])
+                
+            except Exception as e:
+                await message.reply_text(f"Error Ocurred: {e}")
+                
+    if scanned:
+        text = "# GSCANNED LIST\n"
+        for user_id in scanned:
+            text += f"• {user_id}"
+        text += f'GScanned By: {message.from_user.id}'
+        await message.reply_text(text)
+        await pbot.send_message(LOG_CHANNEL_ID, text)
 
-GScanned By: {message.from_user.id}
-"""
-    )
-                await pbot.send_message(
-                    LOG_CHANNEL_ID,
-        f"""
-# GSCANNED
-User ID: {user['id']}
-Reason: {reason}
-
-GScanned By: {message.from_user.id}
-"""
-    )
-            except:
-                pass
-            
 @ubot.on_message(command("grevert") & filters.group)
 async def grevert(_, message: Message):
     if message.from_user.id not in SUDO_USERS:
@@ -213,6 +181,7 @@ async def grevert(_, message: Message):
         user = myobject["user"]
         if not user["is_deleted"]  and user['id'] not in SUDO_USERS and user['id'] != BOT_ID and user["id"] != ASS_ID and user['id'] not in [777000, 1087968824] and not user['is_bot']:
             if db.is_user_gbanned(user['id']):
+                reverted = []
                 try:
                     for chat_id in GBAN_CHATS:
                         
@@ -221,22 +190,13 @@ async def grevert(_, message: Message):
                             f"/ungban {user['id']}"
                         )
                     db.ungban_user(user['id'])
-                    await message.reply_text(
-            f"""
-    # GREVERTED
-    User ID: {user['id']}
-
-    GReverted By: {message.from_user.id}
-    """
-        )
-                    await pbot.send_message(
-                        LOG_CHANNEL_ID,
-            f"""
-    # GREVERTED
-    User ID: {user['id']}
-
-    GReverted By: {message.from_user.id}
-    """
-        )
+                    reverted.append(user['id'])
                 except:
                     pass
+    if reverted:
+        text = "# GREVERT LIST\n"
+        for user_id in reverted:
+            text += f"• {user_id}"
+        text += f'GRevert By: {message.from_user.id}'
+        await message.reply_text(text)
+        await pbot.send_message(LOG_CHANNEL_ID, text)
