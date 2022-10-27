@@ -165,7 +165,7 @@ async def gscan(_, message: Message):
     else:
        reason = f"{res}. Gscaned by {message.from_user.id}"
     async for user in ubot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
-        myobject = json.loads(user)
+        myobject = json.loads(f"{user}")
         await message.reply_text(myobject["user"])
 ''' if not user.is_deleted  and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824] and not user.is_bot:
             try:
