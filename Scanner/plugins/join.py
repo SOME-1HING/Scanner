@@ -8,21 +8,13 @@ from Scanner import ASS_USERNAME, pbot, ubot as USER
 from Scanner.utils.decorators import sudo_users_only, errors
 from Scanner.utils.administrator import adminsOnly
 from Scanner.utils.filters import command
+from Scanner.vars import GBAN_CHATS, LOG_CHANNEL_ID, SUDO_USERS
 
 @pbot.on_message(
     command(["userbotjoin", "botjoin", "join"]) & ~filters.private & ~filters.bot
 )
 @errors
 async def addchannel(client, message):
-    if message.sender_chat:
-        return await message.reply_text(
-            "🔴 __You're an **Anonymous Admin**!__\n│\n╰ Revert back to user account from admin rights."
-        )
-    permission = "can_delete_messages"
-    m = await adminsOnly(permission, message)
-    if m == 1:
-        return
-    chid = message.chat.id
     try:
         invite_link = await message.chat.export_invite_link()
         if "+" in invite_link:
@@ -79,14 +71,20 @@ async def rem(USER, message):
 
 
 @pbot.on_message(command(["userbotleaveall", "leaveall"]))
-@sudo_users_only
 async def bye(client, message):
+    if message.from_user.id not in SUDO_USERS:
+        await message.reply_text(
+            "You need to be part of the Association to scan a user.",
+        )
+        return
     left = 0
     sleep_time = 0.1
     lol = await message.reply("**Assistant leaving all groups**\n\n`Processing...`")
     async for userObject in USER.get_dialogs():
         dialog = json.loads(f"{userObject}")
         try:
+            if dialog['chat']['id'] == GBAN_CHATS or dialog['chat']['id'] == LOG_CHANNEL_ID:
+                continue
             await USER.leave_chat(dialog['chat']['id'])
             await asyncio.sleep(sleep_time)
             left += 1

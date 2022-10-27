@@ -163,7 +163,12 @@ async def gscan(_, message: Message):
        await message.reply_text('Provide Some Reason')
        return
     else:
-       reason = f"{res}. Gscaned by {message.from_user.id}"
+        query = message.text
+        stopwords = ['/gscan']
+        querywords = query.split()
+        resultwords  = [word for word in querywords if word.lower() not in stopwords]
+        res = ' '.join(resultwords)
+        reason = f"{res}. Gscaned by {message.from_user.id}"
     async for userObject in pbot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
         myobject = json.loads(f"{userObject}")
         user = myobject["user"]
