@@ -29,9 +29,9 @@ async def joinchat(client, message):
         user = await USER.get_me()
     except:
         user.first_name = f"{ASS_USERNAME}"
-
+    username = username.replace("@", "")
     try:
-        message.reply_text(f"https://t.me/{username}")
+        await message.reply_text(f"https://t.me/{username}")
         await USER.join_chat(f"https://t.me/{username}")
     except UserAlreadyParticipant:
         await message.reply_text(
