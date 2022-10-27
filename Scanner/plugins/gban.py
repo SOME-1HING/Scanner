@@ -189,7 +189,7 @@ async def gscan(_, message: Message):
     if scanned:
         text = "# GSCANNED LIST\n"
         for user_id in scanned:
-            text += f"• {user_id}"
+            text += f"• `{user_id}`\n"
         text += f'GScanned By: {message.from_user.id}'
         await message.reply_text(text)
         await pbot.send_message(LOG_CHANNEL_ID, text)
@@ -221,7 +221,7 @@ async def grevert(_, message: Message):
     if reverted:
         text = "# GREVERT LIST\n"
         for user_id in reverted:
-            text += f"• {user_id}"
+            text += f"• `{user_id}`\n"
         text += f'GRevert By: {message.from_user.id}'
         await message.reply_text(text)
         await pbot.send_message(LOG_CHANNEL_ID, text)
