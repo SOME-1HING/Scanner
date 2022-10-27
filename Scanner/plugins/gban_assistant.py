@@ -30,7 +30,7 @@ async def scan(_, message: Message):
         await message.reply_text("id must be integer.")
         return
     except:
-        await message.reply_text("/scan -id (id) -r (reason)  -p (proof link)")
+        await message.reply_text("Format: `/scan -id (id) -r (reason)  -p (proof link)`")
         return
     if int(user_id) in SUDO_USERS:
         await message.reply_text(
@@ -98,7 +98,7 @@ async def revert(_, message: Message):
         except ValueError:
             await message.reply_text("id must be integer.")
         except:
-            await message.reply_text("/revert -id (id)")
+            await message.reply_text("Format: `/revert -id (id)`")
             return
     if not db.is_user_gbanned(user_id):
         await message.reply_text(f"User ID: {user_id} is not scanned.")
@@ -212,29 +212,31 @@ async def grevert(_, message: Message):
         myobject = json.loads(f"{userObject}")
         user = myobject["user"]
         if not user["is_deleted"]  and user['id'] not in SUDO_USERS and user['id'] != BOT_ID and user["id"] != ASS_ID and user['id'] not in [777000, 1087968824] and not user['is_bot']:
-            try:
-                for chat_id in GBAN_CHATS:
-                    await ubot.send_message(
-                        chat_id,
-                        f"/ungban {user['id']}"
-                    )
-                db.ungban_user(user['id'])
-                await message.reply_text(
-        f"""
-# GREVERTED
-User ID: {user['id']}
+            if db.is_user_gbanned(user['id']):
+                try:
+                    for chat_id in GBAN_CHATS:
+                        
+                        await ubot.send_message(
+                            chat_id,
+                            f"/ungban {user['id']}"
+                        )
+                    db.ungban_user(user['id'])
+                    await message.reply_text(
+            f"""
+    # GREVERTED
+    User ID: {user['id']}
 
-GReverted By: {message.from_user.id}
-"""
-    )
-                await pbot.send_message(
-                    LOG_CHANNEL_ID,
-        f"""
-# GREVERTED
-User ID: {user['id']}
+    GReverted By: {message.from_user.id}
+    """
+        )
+                    await pbot.send_message(
+                        LOG_CHANNEL_ID,
+            f"""
+    # GREVERTED
+    User ID: {user['id']}
 
-GReverted By: {message.from_user.id}
-"""
-    )
-            except:
-                pass
+    GReverted By: {message.from_user.id}
+    """
+        )
+                except:
+                    pass

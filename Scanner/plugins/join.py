@@ -26,8 +26,7 @@ async def joinchat(client, message):
         user = await USER.get_me()
     except:
         user.first_name = f"{ASS_USERNAME}"
-    try:
-        await message.reply_text(f"https://t.me/{username}")
+    try: 
         await USER.join_chat(f"@{username}")
     except UserAlreadyParticipant:
         await message.reply_text(
@@ -46,6 +45,11 @@ async def joinchat(client, message):
 )
 @errors
 async def addchannel(client, message):
+    if message.from_user.id not in SUDO_USERS:
+        await message.reply_text(
+            "You need to be part of the Association to scan a user.",
+        )
+        return
     try:
         invite_link = await message.chat.export_invite_link()
         if "+" in invite_link:
@@ -76,15 +80,12 @@ async def addchannel(client, message):
         )
         return
 
-@USER.on_message(filters.group & command(["userbotleave", "odaleave", "odaleft"]))
+@USER.on_message(filters.group & command(["userbotleave", "leave"]))
 async def rem(USER, message):
-    if message.sender_chat:
-        return await message.reply_text(
-            "🔴 __You're an **Anonymous Admin**!__\n│\n╰ Revert back to user account from admin rights."
+    if message.from_user.id not in SUDO_USERS:
+        await message.reply_text(
+            "You need to be part of the Association to scan a user.",
         )
-    permission = "can_delete_messages"
-    m = await adminsOnly(permission, message)
-    if m == 1:
         return
     try:
         await USER.send_message(

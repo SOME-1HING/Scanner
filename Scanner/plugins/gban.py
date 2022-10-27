@@ -30,7 +30,7 @@ async def scan(_, message: Message):
         await message.reply_text("id must be integer.")
         return
     except:
-        await message.reply_text("/scan -id (id) -r (reason)  -p (proof link)")
+        await message.reply_text("Format: `/scan -id (id) -r (reason)  -p (proof link)`")
         return
     if int(user_id) in SUDO_USERS:
         await message.reply_text(
@@ -98,7 +98,7 @@ async def revert(_, message: Message):
         except ValueError:
             await message.reply_text("id must be integer.")
         except:
-            await message.reply_text("/revert -id (id)")
+            await message.reply_text("Format: `/revert -id (id)`")
             return
     if not db.is_user_gbanned(user_id):
         await message.reply_text(f"User ID: {user_id} is not scanned.")
