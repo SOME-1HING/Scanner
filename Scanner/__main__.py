@@ -10,6 +10,7 @@ from Scanner.vars import API_ID, API_HASH, BOT_TOKEN, LOG_CHANNEL_ID
 
 async def load_start():
     count = num_gbanned_users()
+    LOGGER.info(f"Current Gbanned Users: {count}")
     LOGGER.info("[INFO]: STARTED")
     try:
         await pbot.send_message(
