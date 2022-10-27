@@ -161,7 +161,7 @@ async def gscan(_, message: Message):
     
     res = message.text
     try:
-        Test = message.text.Split(" ")
+        Test = message.text.split(" ")
         res = " ".join(Test[1:])
         reason = f"{res}. Gscaned by {message.from_user.id}"
     except IndexError:

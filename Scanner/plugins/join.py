@@ -16,7 +16,7 @@ from Scanner.vars import GBAN_CHATS, LOG_CHANNEL_ID, SUDO_USERS
 @errors
 async def joinchat(client, message):
     if "@" in message.text:
-        Test = message.text.Split(" ")
+        Test = message.text.split(" ")
         username = Test[1].replace("@", "")
     else:
         await message.reply_text("Format: /join @username")
