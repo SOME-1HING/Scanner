@@ -21,6 +21,5 @@ search-engine-parser
 tgcrypto
 uvloop
 wget
-telethon
 regex
 html5lib

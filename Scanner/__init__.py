@@ -3,8 +3,6 @@ import time
 
 from aiohttp import ClientSession
 from pyrogram import Client
-from telethon import TelegramClient
-from telethon.sessions import MemorySession
 
 from Scanner.vars import API_HASH, API_ID, BOT_TOKEN, SESSION_STRING
 
