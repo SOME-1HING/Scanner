@@ -1,4 +1,4 @@
-![scanner](https://i.imgur.com/L3Dwr22.jpg)
+![Credits: Augstun](https://i.imgur.com/AgOGjlp.jpg)
 
 <h2 align="center">
     ──「 TELEGRAM GBAN SCANNER 」──
