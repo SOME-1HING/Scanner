@@ -14,6 +14,39 @@ from Scanner.vars import GBAN_CHATS, LOG_CHANNEL_ID, SUDO_USERS
     command(["userbotjoin", "botjoin", "join"]) & ~filters.private & ~filters.bot
 )
 @errors
+async def joinchat(client, message):
+    if "@" in message.text:
+        query = message.text
+        stopwords = ["/userbotjoin @", "/botjoin @", "/join @"]
+        querywords = query.split()
+        resultwords  = [word for word in querywords if word.lower() not in stopwords]
+        link_bokep = ''.join(resultwords[0])
+    else:
+        await message.reply_text("Format: /join @username")
+
+    try:
+        user = await USER.get_me()
+    except:
+        user.first_name = f"{ASS_USERNAME}"
+
+    try:
+        await USER.join_chat(link_bokep)
+    except UserAlreadyParticipant:
+        await message.reply_text(
+            f"🔴 **{user.first_name} already join this group !!**",
+        )
+    except Exception as e:
+        print(e)
+        await message.reply_text(
+            f"❌ **Assistant ({user.first_name}) can't join your group due to many join requests for userbot!**\n‼️ Make sure the user is not banned in the group."
+            f"\n\n» `Manually add the {user.first_name} to your group`",
+        )
+        return
+    
+@pbot.on_message(
+    command(["joinhere"]) & ~filters.private & ~filters.bot
+)
+@errors
 async def addchannel(client, message):
     try:
         invite_link = await message.chat.export_invite_link()
@@ -44,7 +77,6 @@ async def addchannel(client, message):
             f"\n\n» `Manually add the {user.first_name} to your group`",
         )
         return
-
 
 @USER.on_message(filters.group & command(["userbotleave", "odaleave", "odaleft"]))
 async def rem(USER, message):
