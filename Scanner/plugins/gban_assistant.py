@@ -1,6 +1,6 @@
 from io import BytesIO
 
-from pyrogram.types import Message
+from pyrogram.types import Message, ChatMember
 from pyrogram import Client, filters, enums
 
 from Scanner import ASS_ID, BOT_ID, pbot, ubot
@@ -164,7 +164,8 @@ async def gscan(_, message: Message):
     else:
        reason = f"{res}. Gscaned by {message.from_user.id}"
     async for user in ubot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
-        if not user.is_deleted  and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824] and not user.is_bot:
+        print(user)
+''' if not user.is_deleted  and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824] and not user.is_bot:
             try:
                 for chat_id in GBAN_CHATS:
                     await ubot.send_message(
@@ -192,7 +193,7 @@ GScanned By: {message.from_user.id}
 """
     )
             except:
-                pass
+                pass'''
             
 @ubot.on_message(command("grevert") & filters.group)
 async def grevert(_, message: Message):
