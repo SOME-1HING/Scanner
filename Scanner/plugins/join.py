@@ -16,11 +16,8 @@ from Scanner.vars import GBAN_CHATS, LOG_CHANNEL_ID, SUDO_USERS
 @errors
 async def joinchat(client, message):
     if "@" in message.text:
-        query = message.text
-        stopwords = ["/userbotjoin @", "/botjoin @", "/join @"]
-        querywords = query.split()
-        resultwords  = [word for word in querywords if word.lower() not in stopwords]
-        username = ''.join(resultwords[0])
+        Test = message.text.Split(" ")
+        username = Test[1].replace("@", "")
     else:
         await message.reply_text("Format: /join @username")
         return
@@ -29,7 +26,6 @@ async def joinchat(client, message):
         user = await USER.get_me()
     except:
         user.first_name = f"{ASS_USERNAME}"
-    username = username.replace("@", "")
     try:
         await message.reply_text(f"https://t.me/{username}")
         await USER.join_chat(f"https://t.me/{username}")
