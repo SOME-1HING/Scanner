@@ -4,7 +4,7 @@ import time
 from platform import python_version
 from psutil import cpu_percent, virtual_memory, disk_usage, boot_time
 from Scanner.vars import SUDO_USERS
-from pyrogram import Client
+from pyrogram import Client, enums
 from pyrogram.types import Message
 from pyrogram import __version__
 
@@ -50,7 +50,7 @@ async def ping(client: Client, message: Message):
         "<b>PONG</b> ✨\n"
         "<b>Time Taken:</b> <code>{}</code>\n"
         "<b>Service Uptime:</b> <code>{}</code>".format(ping_time, uptime),
-        parse_mode="html",
+        parse_mode= enums.ParseMode.HTML,
     )
 
 @Client.on_message(command("sysinfo"))
@@ -84,7 +84,7 @@ async def sysinfo(client: Client, message: Message):
             + "</code>\n"
         )
         status += "<b>┖</b>\n"
-        await message.reply_text(status, parse_mode="html")
+        await message.reply_text(status, parse_mode= enums.ParseMode.HTML)
     
     else:
         await message.reply_text("This is SUDO restricted command.")

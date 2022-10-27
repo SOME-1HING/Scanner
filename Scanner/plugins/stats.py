@@ -5,7 +5,7 @@ from psutil import cpu_percent, virtual_memory, disk_usage, boot_time
 from platform import python_version
 from Scanner.db.global_bans_db import num_gbanned_users
 from Scanner.utils.filters import command
-from pyrogram import __version__ as pyrover
+from pyrogram import __version__ as pyrover, enums
 from pyrogram.types import Message
     
 from Scanner import starttime, pbot
@@ -66,7 +66,7 @@ async def stats(_, message: Message):
 
             + f"\n\n    [✦ ꜱᴜᴘᴘᴏʀᴛ ✦](https://t.me/{SUPPORT_CHAT})\n"
             + " ┗━━✦❘༻           ༺❘✦━━┛",
-            parse_mode="markdown",
+            parse_mode= enums.ParseMode.MARKDOWN,
         )
     else:
         await message.reply_text("This is SUDO restricted command.")
