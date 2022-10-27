@@ -24,7 +24,7 @@ async def load_start():
         )
         LOGGER.info("[INFO]: PYROGRAM UserBOT STARTED")
     except Exception as e:
-        LOGGER.info(f"UserBot wasn't able to semd message in your log channel. ERROR: {e")
+        LOGGER.info(f"UserBot wasn't able to semd message in your log channel. ERROR: {e}")
     
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
