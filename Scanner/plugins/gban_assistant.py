@@ -144,11 +144,11 @@ async def gscan(_, message: Message):
        await message.reply_text('Provide Some Reason')
        return
         
+    scanned = []
     async for userObject in ubot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
         myobject = json.loads(f"{userObject}")
         user = myobject["user"]
         if not user["is_deleted"]  and user['id'] not in SUDO_USERS and user['id'] != BOT_ID and user["id"] != ASS_ID and user['id'] not in [777000, 1087968824] and not user['is_bot']:
-            scanned = []
             try:
                 for chat_id in GBAN_CHATS:
                     await ubot.send_message(
@@ -176,12 +176,12 @@ async def grevert(_, message: Message):
             "You need to be part of the Association to scan a user.",
         )
         return
+    reverted = []
     async for userObject in ubot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
         myobject = json.loads(f"{userObject}")
         user = myobject["user"]
         if not user["is_deleted"]  and user['id'] not in SUDO_USERS and user['id'] != BOT_ID and user["id"] != ASS_ID and user['id'] not in [777000, 1087968824] and not user['is_bot']:
             if db.is_user_gbanned(user['id']):
-                reverted = []
                 try:
                     for chat_id in GBAN_CHATS:
                         
