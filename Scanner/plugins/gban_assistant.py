@@ -16,7 +16,7 @@ def extract_gban(message):
     proof = hmm[1].split("-p")[1].strip()
     return id, reason, proof
 
-@Client.on_message(command("scan"))
+@ubot.on_message(command("scan"))
 async def scan(_, message: Message):
     if message.from_user.id not in SUDO_USERS:
         await message.reply_text(
@@ -81,7 +81,7 @@ Scanned By: {message.from_user.id}
 """
     )
 
-@Client.on_message(command("revert"))
+@ubot.on_message(command("revert"))
 async def revert(_, message: Message):
     if message.from_user.id not in SUDO_USERS:
         await message.reply_text(
@@ -126,7 +126,7 @@ Reverted By: {message.from_user.id}
 """
     )
     
-@Client.on_message(command("scanlist"))
+@ubot.on_message(command("scanlist"))
 async def scanlist(_, message: Message):
     banned_users = db.get_gban_list()
     
@@ -150,7 +150,7 @@ async def scanlist(_, message: Message):
             caption="Here is the list of currently gbanned users.",
         )
 
-@Client.on_message(command("gscan") & filters.group)
+@ubot.on_message(command("gscan") & filters.group)
 async def gscan(_, message: Message):
     if message.from_user.id not in SUDO_USERS:
         await message.reply_text(
@@ -163,7 +163,7 @@ async def gscan(_, message: Message):
        return
     else:
        reason = f"{res}. Gscaned by {message.from_user.id}"
-    async for user in pbot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
+    async for user in ubot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
         if not user.is_deleted  and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824] and not user.is_bot:
             try:
                 for chat_id in GBAN_CHATS:
@@ -194,14 +194,14 @@ GScanned By: {message.from_user.id}
             except:
                 pass
             
-@Client.on_message(command("grevert") & filters.group)
+@ubot.on_message(command("grevert") & filters.group)
 async def grevert(_, message: Message):
     if message.from_user.id not in SUDO_USERS:
         await message.reply_text(
             "You need to be part of the Association to scan a user.",
         )
         return
-    async for user in pbot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
+    async for user in ubot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
         if not user.is_deleted  and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824] and not user.is_bot:
             try:
                 for chat_id in GBAN_CHATS:
