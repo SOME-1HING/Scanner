@@ -16,15 +16,15 @@ async def load_start():
             LOG_CHANNEL_ID, f"**Pyrogram Client Started Successfully !!**\nCurrent Gbanned Users: `{count}`"
         )
         LOGGER.info("[INFO]: PYROGRAM BOT STARTED")
-    except:
-        LOGGER.info("Bot wasn't able to semd message in your log channel.")
+    except Exception as e:
+        LOGGER.info(f"Bot wasn't able to semd message in your log channel. ERROR: {e}")
     try:
         await ubot.send_message(
             LOG_CHANNEL_ID, "**Assistant Started Successfully !!**"
         )
         LOGGER.info("[INFO]: PYROGRAM UserBOT STARTED")
-    except:
-        LOGGER.info("UserBot wasn't able to semd message in your log channel.")
+    except Exception as e:
+        LOGGER.info(f"UserBot wasn't able to semd message in your log channel. ERROR: {e")
     
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
