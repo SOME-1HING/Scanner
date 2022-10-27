@@ -12,20 +12,21 @@ async def load_start():
     count = num_gbanned_users()
     LOGGER.info(f"Current Gbanned Users: {count}")
     LOGGER.info("[INFO]: STARTED")
+    LOGGER.info(f"LOG CHANNELS: {int(LOG_CHANNEL_ID)}")
     try:
         await pbot.send_message(
-            LOG_CHANNEL_ID, f"**Pyrogram Client Started Successfully !!**\nCurrent Gbanned Users: `{count}`"
+            int(LOG_CHANNEL_ID), f"**Pyrogram Client Started Successfully !!**\nCurrent Gbanned Users: `{count}`"
         )
         LOGGER.info("[INFO]: PYROGRAM BOT STARTED")
     except Exception as e:
-        LOGGER.info(f"Bot wasn't able to semd message in your log channel. ERROR: {e}")
+        LOGGER.info(f"Bot wasn't able to semd message in your log channel.\n\nERROR: {e}")
     try:
         await ubot.send_message(
-            LOG_CHANNEL_ID, "**Assistant Started Successfully !!**"
+            int(LOG_CHANNEL_ID), "**Assistant Started Successfully !!**"
         )
         LOGGER.info("[INFO]: PYROGRAM UserBOT STARTED")
     except Exception as e:
-        LOGGER.info(f"UserBot wasn't able to semd message in your log channel. ERROR: {e}")
+        LOGGER.info(f"UserBot wasn't able to semd message in your log channel.\n\nERROR: {e}")
     
 
 loop = asyncio.get_event_loop_policy().get_event_loop()
