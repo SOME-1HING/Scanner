@@ -1,4 +1,5 @@
 from io import BytesIO
+import json
 
 from pyrogram.types import Message
 from pyrogram import Client, filters, enums
@@ -163,19 +164,21 @@ async def gscan(_, message: Message):
        return
     else:
        reason = f"{res}. Gscaned by {message.from_user.id}"
-    async for user in pbot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
-        if not user.is_deleted  and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824] and not user.is_bot:
+    async for userObject in pbot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
+        myobject = json.loads(f"{userObject}")
+        user = myobject["user"]
+        if not user["is_deleted"]  and user['id'] not in SUDO_USERS and user['id'] != BOT_ID and user["id"] != ASS_ID and user['id'] not in [777000, 1087968824] and not user['is_bot']:
             try:
                 for chat_id in GBAN_CHATS:
                     await ubot.send_message(
                         chat_id,
-                        f"/gban {user.id} {reason}"
+                        f"/gban {user['id']} {reason}"
                     )
-                db.gban_user(user.id, message.from_user.id, reason)
+                db.gban_user(user['id'], message.from_user.id, reason)
                 await message.reply_text(
         f"""
 # GSCANNED
-User ID: {user.id}
+User ID: {user['id']}
 Reason: {reason}
 
 GScanned By: {message.from_user.id}
@@ -185,7 +188,7 @@ GScanned By: {message.from_user.id}
                     LOG_CHANNEL_ID,
         f"""
 # GSCANNED
-User ID: {user.id}
+User ID: {user['id']}
 Reason: {reason}
 
 GScanned By: {message.from_user.id}
@@ -201,19 +204,21 @@ async def grevert(_, message: Message):
             "You need to be part of the Association to scan a user.",
         )
         return
-    async for user in pbot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
-        if not user.is_deleted  and user.id not in SUDO_USERS and user.id != BOT_ID and user.id != ASS_ID and user.id not in [777000, 1087968824] and not user.is_bot:
+    async for userObject in pbot.get_chat_members(message.chat.id, filter=enums.ChatMembersFilter.ADMINISTRATORS):
+        myobject = json.loads(f"{userObject}")
+        user = myobject["user"]
+        if not user["is_deleted"]  and user['id'] not in SUDO_USERS and user['id'] != BOT_ID and user["id"] != ASS_ID and user['id'] not in [777000, 1087968824] and not user['is_bot']:
             try:
                 for chat_id in GBAN_CHATS:
                     await ubot.send_message(
                         chat_id,
-                        f"/ungban {user.id}"
+                        f"/ungban {user['id']}"
                     )
-                db.ungban_user(user.id)
+                db.ungban_user(user['id'])
                 await message.reply_text(
         f"""
 # GREVERTED
-User ID: {user.id}
+User ID: {user['id']}
 
 GReverted By: {message.from_user.id}
 """
@@ -222,7 +227,7 @@ GReverted By: {message.from_user.id}
                     LOG_CHANNEL_ID,
         f"""
 # GREVERTED
-User ID: {user.id}
+User ID: {user['id']}
 
 GReverted By: {message.from_user.id}
 """
