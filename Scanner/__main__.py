@@ -44,5 +44,4 @@ Client(
     plugins={"root": "Scanner.plugins"},
 ).start()
 
-idle()
 loop.close()
