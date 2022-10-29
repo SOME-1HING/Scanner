@@ -2,9 +2,8 @@ import asyncio
 import requests
 
 from pyrogram import Client
-from pytgcalls import idle
 
-from Scanner import LOGGER, pbot, ubot
+from Scanner import LOGGER, pbot, ubot, tbot
 from Scanner.db.global_bans_db import num_gbanned_users
 from Scanner.vars import API_ID, API_HASH, BOT_TOKEN, LOG_CHANNEL_ID
 
@@ -33,12 +32,16 @@ loop = asyncio.get_event_loop_policy().get_event_loop()
 loop.run_until_complete(load_start())
 
 Client(
-    ":memory:",
-    API_ID,
-    API_HASH,
+    name="SOME-1HING",
+    api_id=API_ID,
+    api_hash=API_HASH,
     bot_token=BOT_TOKEN,
+    workers=min(32, os.cpu_count() + 4),
+    parse_mode=ParseMode.DEFAULT,
+    workdir=DOWNLOAD_DIRECTORY,
+    sleep_threshold=60,
+    in_memory=True,
     plugins={"root": "Scanner.plugins"},
 ).start()
 
-idle()
 loop.close()
